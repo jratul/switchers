@@ -23,9 +23,9 @@ export default function NavMainItem({ title, subData }: Props) {
       {Array.isArray(subData) && (
         <PopoverPanel
           transition
-          className="absolute inset-x-0 top-full bg-white text-gray-500 transition data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in sm:text-sm"
+          className="z-20 absolute inset-x-0 top-full bg-white text-gray-500 transition data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in sm:text-sm"
         >
-          <div className="mx-auto w-1/2 px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto w-2/5">
             <div className="grid grid-cols-1 items-start gap-x-6 gap-y-10 pb-5 pt-5 md:grid-cols-2 lg:gap-x-8">
               {subData.map((subItem) => (
                 <div key={subItem.title}>

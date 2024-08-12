@@ -45,7 +45,7 @@ export default function Nav() {
           <div className="border-b border-gray-200 px-4 pb-14 sm:px-0 sm:pb-0">
             <div className="flex h-16 items-center justify-between">
               <a
-                className="flex flex-1 font-archicoco text-red-500 font-bold text-2xl"
+                className="flex flex-1 font-aldrich text-red-500 font-bold text-2xl"
                 href="/"
               >
                 Switchers
