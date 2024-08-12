@@ -11,7 +11,7 @@ const popularProductList = [
     desc: "",
   },
   {
-    name: "게임1",
+    name: "게임2",
     genre: "",
     release: new Date(),
     price: 50000,
@@ -20,7 +20,7 @@ const popularProductList = [
     desc: "",
   },
   {
-    name: "게임1",
+    name: "게임3",
     genre: "",
     release: new Date(),
     price: 50000,
@@ -29,7 +29,7 @@ const popularProductList = [
     desc: "",
   },
   {
-    name: "게임1",
+    name: "게임4",
     genre: "",
     release: new Date(),
     price: 50000,
@@ -38,7 +38,7 @@ const popularProductList = [
     desc: "",
   },
   {
-    name: "게임1",
+    name: "게임5",
     genre: "",
     release: new Date(),
     price: 50000,
@@ -67,7 +67,9 @@ export default function Home() {
           <p className="mt-4 text-xl text-white">
             왕국의 눈물 출시 기념
             <br />
-            젤다의 전설 패키지 할인 이벤트
+            젤다의 전설{" "}
+            <span className="font-semibold text-red-300">패키지 할인</span>{" "}
+            이벤트
           </p>
           <a
             href="#"
