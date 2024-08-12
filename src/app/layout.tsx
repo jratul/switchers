@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Nav from "./Nav";
+import Footer from "./Footer";
 
 export const metadata: Metadata = {
   title: "스위쳐스",
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body className={"font-pretendard tracking-tight"}>
         <Nav />
         {children}
+        <Footer />
       </body>
     </html>
   );
