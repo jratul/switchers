@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Nav from "./Nav";
 
 export const metadata: Metadata = {
   title: "스위쳐스",
@@ -27,7 +28,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={`${pretendard.variable} ${aldrich.variable}`}>
-      <body className={"font-pretendard tracking-tight"}>{children}</body>
+      <body className={"font-pretendard tracking-tight"}>
+        <Nav />
+        {children}
+      </body>
     </html>
   );
 }
