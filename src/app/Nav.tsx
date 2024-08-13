@@ -59,8 +59,12 @@ export default function Nav() {
                 </div>
               </PopoverGroup>
               <div className="flex flex-1 items-center justify-end">
-                <div>검색</div>
-                <div className="ml-4">로그인</div>
+                <div className="w-max cursor-pointer hover:font-semibold">
+                  검색
+                </div>
+                <div className="w-max ml-4 cursor-pointer hover:font-semibold">
+                  로그인
+                </div>
               </div>
             </div>
           </div>
