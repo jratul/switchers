@@ -15,8 +15,8 @@ interface Props {
 export default function NavMainItem({ title, subData }: Props) {
   return (
     <Popover className="flex">
-      <div className="relative flex">
-        <PopoverButton className="relative z-10 -mb-px flex items-center border-b-2 border-transparent text-sm lg:text-lg font-medium hover:font-semibold text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-[open]:border-red-500 data-[open]:text-red-500">
+      <div className="flex">
+        <PopoverButton className="relative z-10 -mb-px flex items-center border-b-2 border-transparent text-sm lg:text-lg font-medium hover:font-semibold text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-[open]:border-red-500 data-[open]:text-red-500 w-max">
           {title}
         </PopoverButton>
       </div>
@@ -60,7 +60,7 @@ export default function NavMainItem({ title, subData }: Props) {
             </div>
             <div className="relative flex justify-center">
               <span className="isolate inline-flex -space-x-px rounded-md shadow-sm">
-                <CloseButton className="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-100 focus:z-10">
+                <CloseButton className="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-100 focus:z-10 mb-5">
                   <XMarkIcon className="h-5 w-5" />
                 </CloseButton>
               </span>
