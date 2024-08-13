@@ -1,6 +1,10 @@
-import { GameInfo } from "@/types";
+import { GameInfo } from "@/constants/types";
 
-export default function ProductListItem({ gameInfo }: { gameInfo: GameInfo }) {
+export default function MainProductListItem({
+  gameInfo,
+}: {
+  gameInfo: GameInfo;
+}) {
   return (
     <a
       key={gameInfo.name}

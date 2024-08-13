@@ -1,52 +1,6 @@
-import ProductListItem from "@/components/ProductListItem";
-
-const popularProductList = [
-  {
-    name: "게임1",
-    genre: "",
-    release: new Date(),
-    price: 50000,
-    company: "",
-    image: "images/zelda-promo.jpg",
-    desc: "",
-  },
-  {
-    name: "게임2",
-    genre: "",
-    release: new Date(),
-    price: 50000,
-    company: "",
-    image: "images/zelda-promo.jpg",
-    desc: "",
-  },
-  {
-    name: "게임3",
-    genre: "",
-    release: new Date(),
-    price: 50000,
-    company: "",
-    image: "images/zelda-promo.jpg",
-    desc: "",
-  },
-  {
-    name: "게임4",
-    genre: "",
-    release: new Date(),
-    price: 50000,
-    company: "",
-    image: "images/zelda-promo.jpg",
-    desc: "",
-  },
-  {
-    name: "게임5",
-    genre: "",
-    release: new Date(),
-    price: 50000,
-    company: "",
-    image: "images/zelda-promo.jpg",
-    desc: "",
-  },
-];
+import Divider from "@/components/Divider";
+import MainProductListItem from "@/components/MainProductListItem";
+import { popularProductList } from "@/constants/data";
 
 export default function Home() {
   return (
@@ -95,7 +49,7 @@ export default function Home() {
             <div className="relative box-content h-80 overflow-x-auto py-2 xl:overflow-visible">
               <div className="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
                 {popularProductList.map((productItem) => (
-                  <ProductListItem
+                  <MainProductListItem
                     gameInfo={productItem}
                     key={productItem.name}
                   />
@@ -105,7 +59,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className="mx-auto max-w-6xl mb-5 border-t border-gray-300" />
+      <Divider />
       <section className="mt-5 mx-auto max-w-6xl">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-extrabold text-gray-900">최근 출시</h2>
@@ -122,7 +76,7 @@ export default function Home() {
             <div className="relative box-content h-80 overflow-x-hidden py-2 xl:overflow-visible">
               <div className="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
                 {popularProductList.map((productItem) => (
-                  <ProductListItem
+                  <MainProductListItem
                     gameInfo={productItem}
                     key={productItem.name}
                   />
