@@ -1,4 +1,4 @@
-import { NavSubCategory } from "@/types";
+import { NavSubCategory } from "@/constants/types";
 import {
   CloseButton,
   Popover,
