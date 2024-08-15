@@ -6,14 +6,14 @@ interface Props {
   idx: number;
 }
 
-export default function StoreProductListItem({ gameInfo, idx }: Props) {
+export default function GameProductListItem({ gameInfo, idx }: Props) {
   return (
     <a key={gameInfo.name} href={`game/${idx}`} className="mb-5">
-      <div className="h-64 overflow-hidden">
+      <div className="h-64 overflow-hidden rounded-lg">
         <img
           alt={gameInfo.name}
           src={gameInfo.image}
-          className="h-full w-full object-cover object-center rounded-lg transition duration-100 hover:scale-105 ease-in-out "
+          className="h-full w-full object-cover object-center transition duration-100 hover:scale-105 ease-in-out "
         />
       </div>
       <div className="align-middle mt-2 text-xl font-bold text-red-500">

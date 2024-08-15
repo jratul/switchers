@@ -140,3 +140,135 @@ export const popularProductList = [
     desc: "",
   },
 ];
+
+export const deviceList = [
+  {
+    name: "Sports 세트",
+    price: 414800,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "네온 블루 / 네온 레드",
+    price: 414800,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "그레이",
+    price: 414800,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "마리오 레드X블루",
+    price: 414800,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "링 피트 어드벤처",
+    price: 414800,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "OLED 화이트",
+    price: 414800,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "OLED 네온 블루 / 레드",
+    price: 414800,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "라이트 알로하",
+    price: 414800,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "라이트 디아루가 펄기아 에디션",
+    price: 414800,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "라이트 블루",
+    price: 414800,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "라이트 코랄",
+    price: 414800,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+];
+
+export const accList = [
+  {
+    name: "조이트론 조이콘 도크 충전기",
+    price: 19000,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "조이트론 조이콘 레이싱 휠",
+    price: 19000,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "조이콘 민트/스카이블루",
+    price: 19000,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "겜맥 미니 TV독",
+    price: 19000,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "스페이스실드 에센셜 액세서리",
+    price: 19000,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "대한 카트리지 케이스",
+    price: 19000,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "대한 파우치 동물의 숲 에디션",
+    price: 19000,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "픽센드 풀커버 케이스 핑크",
+    price: 19000,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "플럭스 9H강화유리 보호필름",
+    price: 19000,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+  {
+    name: "모모켓 올인원 트레블 수납가방 블랙",
+    price: 19000,
+    image: "images/zelda-promo.jpg",
+    desc: "",
+  },
+];
