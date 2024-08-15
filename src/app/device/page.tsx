@@ -5,7 +5,7 @@ export default function DeviceList() {
   return (
     <div className="my-5 mx-auto max-w-6xl">
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-3">
-        <div className="col-span-1">
+        <div className="col-span-1 px-4">
           <p className="text-red-500 text-3xl font-bold mb-3">
             닌텐도 스위치 본체
           </p>

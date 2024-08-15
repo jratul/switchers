@@ -3,12 +3,15 @@ import Rating from "./Rating";
 
 interface Props {
   gameInfo: GameInfo;
-  idx: number;
 }
 
-export default function GameProductListItem({ gameInfo, idx }: Props) {
+export default function GameProductListItem({ gameInfo }: Props) {
   return (
-    <a key={gameInfo.name} href={`game/${idx}`} className="mb-5">
+    <a
+      key={gameInfo.name}
+      href={`game/${gameInfo._id.toString()}`}
+      className="mb-5"
+    >
       <div className="h-64 overflow-hidden rounded-lg">
         <img
           alt={gameInfo.name}
@@ -23,11 +26,13 @@ export default function GameProductListItem({ gameInfo, idx }: Props) {
       <div className="text-black font-semibold">
         &#65510; {gameInfo.price.toLocaleString()}
       </div>
-      <div className="flex">
+      <div className="flex items-center">
         <span className="mr-1">
-          <Rating rating={4.5} />
+          <Rating rating={gameInfo.score} />
         </span>
-        <span className="align-middle text-gray-600">4.5</span>
+        <span className="text-gray-600">
+          {gameInfo.score ? gameInfo.score : 0}
+        </span>
       </div>
     </a>
   );

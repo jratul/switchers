@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 import {
   Disclosure,
   DisclosureButton,
@@ -7,11 +11,32 @@ import {
 import { MinusIcon, PlusIcon } from "@heroicons/react/20/solid";
 
 import GameProductListItem from "@/components/GameProductListItem";
-import { filterData, gameData } from "@/constants/data";
+import { filterData } from "@/constants/data";
+import { GameInfo } from "@/constants/types";
 
 export default function GameList() {
+  const [gameList, setGameList] = useState<GameInfo[]>([]);
+
+  useEffect(() => {
+    fetch(`/api/games`, { method: "GET" })
+      .then((res) => {
+        if (!res.ok) {
+          console.log("Error");
+        }
+
+        return res.json();
+      })
+      .then((gameList) => {
+        console.log("gameList:", gameList);
+        setGameList(gameList);
+      })
+      .catch((error) => {
+        alert(`${error}`);
+      });
+  }, []);
+
   return (
-    <div className="my-5 mx-auto max-w-6xl">
+    <div className="my-5 mx-auto max-w-6xl p-5">
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-3">
         <div className="col-span-1">
           <p className="text-red-500 text-3xl font-bold mb-3">게임</p>
@@ -23,7 +48,7 @@ export default function GameList() {
             {filterData.map((filter) => (
               <Disclosure
                 as="div"
-                className="border-t border-gray-200 px-4 py-6"
+                className="border-t border-gray-200 py-6"
                 defaultOpen={true}
                 key={filter.title}
               >
@@ -71,12 +96,8 @@ export default function GameList() {
         </div>
         <div className="col-span-1 lg:col-span-3 p-3">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
-            {gameData.map((gameInfo, idx) => (
-              <GameProductListItem
-                gameInfo={gameInfo}
-                idx={idx}
-                key={gameInfo.name}
-              />
+            {gameList.map((gameInfo) => (
+              <GameProductListItem gameInfo={gameInfo} key={gameInfo.name} />
             ))}
           </div>
         </div>

@@ -39,14 +39,24 @@ const Star = ({ variant }: { variant: "filled" | "empty" | "half" }) => {
 
 export default function Rating({ rating }: { rating: number }) {
   return (
-    <div className="flex items-baseline">
-      {Array.from({ length: Math.floor(rating) }, (_, i) => (
-        <Star key={i} variant="filled" />
-      ))}
-      {!Number.isInteger(rating) && <Star variant="half" />}
-      {Array.from({ length: 5 - Math.ceil(rating) }, (_, i) => (
-        <Star key={i} variant="empty" />
-      ))}
+    <div className="flex">
+      {rating ? (
+        <>
+          {Array.from({ length: Math.floor(rating) }, (_, i) => (
+            <Star key={i} variant="filled" />
+          ))}
+          {!Number.isInteger(rating) && <Star variant="half" />}
+          {Array.from({ length: 5 - Math.ceil(rating) }, (_, i) => (
+            <Star key={i} variant="empty" />
+          ))}
+        </>
+      ) : (
+        <>
+          {Array.from({ length: 5 }, (_, i) => (
+            <Star key={i} variant="empty" />
+          ))}
+        </>
+      )}
     </div>
   );
 }
