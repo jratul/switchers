@@ -6,23 +6,33 @@ import {
   PopoverPanel,
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
+import clsx from "clsx";
 
 interface Props {
   title: string;
+  isOpen: boolean;
   subData?: NavSubCategory[];
+  href?: string;
 }
 
-export default function NavMainItem({ title, subData }: Props) {
+export default function NavMainItem({ title, isOpen, subData, href }: Props) {
   return (
     <Popover className="flex">
       <div className="flex">
-        <PopoverButton className="relative z-10 -mb-px flex items-center border-b-2 border-transparent text-sm lg:text-lg font-medium hover:font-semibold text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-[open]:border-red-500 data-[open]:text-red-500 w-max">
-          {title}
+        <PopoverButton
+          className={clsx(
+            "relative z-10 -mb-px flex items-center border-b-2 border-transparent text-sm lg:text-lg font-medium hover:font-semibold text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-[open]:border-red-300 data-[open]:text-red-300 w-max",
+            isOpen && "text-red-500"
+          )}
+        >
+          {href ? <Link href={href}>{title}</Link> : <>{title}</>}
         </PopoverButton>
       </div>
       {Array.isArray(subData) && (
         <PopoverPanel
           transition
+          focus={true}
           className="z-20 absolute inset-x-0 top-full bg-white text-gray-500 transition data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in sm:text-sm"
         >
           <div className="mx-auto w-2/5">

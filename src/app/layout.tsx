@@ -29,9 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className={`${pretendard.variable} ${aldrich.variable}`}>
-      <body
-        className={"font-pretendard tracking-tight flex flex-col min-h-dvh"}
-      >
+      <body className={"font-pretendard tracking-tight flex flex-col h-screen"}>
         <Nav />
         <div className="flex-grow">{children}</div>
         <Footer />

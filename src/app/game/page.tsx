@@ -6,7 +6,7 @@ import {
 
 import { MinusIcon, PlusIcon } from "@heroicons/react/20/solid";
 
-import StoreProductListItem from "@/components/StoreProductListItem";
+import GameProductListItem from "@/components/GameProductListItem";
 import { filterData, gameData } from "@/constants/data";
 
 export default function GameList() {
@@ -72,7 +72,7 @@ export default function GameList() {
         <div className="col-span-1 lg:col-span-3 p-3">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
             {gameData.map((gameInfo, idx) => (
-              <StoreProductListItem
+              <GameProductListItem
                 gameInfo={gameInfo}
                 idx={idx}
                 key={gameInfo.name}

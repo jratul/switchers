@@ -1,5 +1,9 @@
-import NavMainItem from "@/components/NavMainItem";
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { PopoverGroup } from "@headlessui/react";
+import NavMainItem from "@/components/NavMainItem";
 
 const subCategoryData = [
   [
@@ -29,15 +33,18 @@ const subCategoryData = [
     {
       title: "카테고리",
       subLinks: [
-        { name: "조이콘", href: "#" },
-        { name: "케이스", href: "#" },
-        { name: "충전기", href: "#" },
+        { name: "전체", href: "/acc" },
+        { name: "조이콘", href: "/acc" },
+        { name: "케이스", href: "/acc" },
+        { name: "충전기", href: "/acc" },
       ],
     },
   ],
 ];
 
 export default function Nav() {
+  const pathname = usePathname();
+
   return (
     <div>
       <header className="relative">
@@ -52,19 +59,35 @@ export default function Nav() {
               </a>
               <PopoverGroup className="absolute inset-x-0 bottom-0 sm:static sm:flex-1 sm:self-stretch">
                 <div className="flex h-14 space-x-8 overflow-x-auto border-t px-4 pb-px sm:h-full sm:justify-center sm:overflow-visible sm:border-t-0 sm:pb-0">
-                  <NavMainItem title="게임" subData={subCategoryData[0]} />
-                  <NavMainItem title="본체" />
-                  <NavMainItem title="액세서리" subData={subCategoryData[1]} />
-                  <NavMainItem title="이벤트" />
+                  <NavMainItem
+                    title="게임"
+                    subData={subCategoryData[0]}
+                    isOpen={pathname.startsWith("/game")}
+                  />
+                  <NavMainItem
+                    title="본체"
+                    href="/device"
+                    isOpen={pathname.startsWith("/device")}
+                  />
+                  <NavMainItem
+                    title="액세서리"
+                    subData={subCategoryData[1]}
+                    isOpen={pathname.startsWith("/acc")}
+                  />
+                  <NavMainItem
+                    title="이벤트"
+                    href="/event"
+                    isOpen={pathname.startsWith("/event")}
+                  />
                 </div>
               </PopoverGroup>
               <div className="flex flex-1 items-center justify-end">
-                <div className="w-max cursor-pointer hover:font-semibold">
-                  검색
-                </div>
-                <div className="w-max ml-4 cursor-pointer hover:font-semibold">
+                <Link
+                  className="w-max ml-4 cursor-pointer hover:font-semibold"
+                  href="/login"
+                >
                   로그인
-                </div>
+                </Link>
               </div>
             </div>
           </div>

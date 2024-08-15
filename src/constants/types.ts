@@ -17,3 +17,10 @@ export interface GameInfo {
   image: string;
   desc: string;
 }
+
+export interface ProductInfo {
+  name: string;
+  price: number;
+  image: string;
+  desc: string;
+}
