@@ -14,7 +14,7 @@ export default function MainProductListItem({
       <span aria-hidden="true" className="absolute inset-0">
         <img
           alt=""
-          src={gameInfo.image}
+          src={`${process.env.NEXT_PUBLIC_BUCKET_URL}${gameInfo.image}`}
           className="h-full w-full object-cover object-center"
         />
       </span>

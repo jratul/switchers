@@ -15,7 +15,7 @@ export default function GameProductListItem({ gameInfo }: Props) {
       <div className="h-64 overflow-hidden rounded-lg">
         <img
           alt={gameInfo.name}
-          src={gameInfo.image}
+          src={`${process.env.NEXT_PUBLIC_BUCKET_URL}${gameInfo.image}`}
           className="h-full w-full object-cover object-center transition duration-100 hover:scale-105 ease-in-out "
         />
       </div>
