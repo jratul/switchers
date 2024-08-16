@@ -21,13 +21,12 @@ export default function GameList() {
     fetch(`/api/games`, { method: "GET" })
       .then((res) => {
         if (!res.ok) {
-          console.log("Error");
+          throw new Error();
         }
 
         return res.json();
       })
       .then((gameList) => {
-        console.log("gameList:", gameList);
         setGameList(gameList);
       })
       .catch((error) => {

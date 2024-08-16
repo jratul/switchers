@@ -54,7 +54,9 @@ export default function GameDetail({ params }: { params: { slug: string } }) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
             <div className="col-span-1">
               <div>
-                <img src={gameInfo?.image} />
+                <img
+                  src={`${process.env.NEXT_PUBLIC_BUCKET_URL}${gameInfo?.image}`}
+                />
               </div>
             </div>
             <div className="grid col-span-1 gap-2">

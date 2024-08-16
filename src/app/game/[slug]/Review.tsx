@@ -89,7 +89,7 @@ export default function Review({ gameId }: { gameId: string }) {
           ))}
         </div>
       </div>
-      <div className="col-span-1 lg:col-span-2">
+      <div className="col-span-1 lg:col-span-2 p-3">
         {reviewList.map((reviewInfo) => (
           <ReviewItem reviewInfo={reviewInfo} key={reviewInfo._id.toString()} />
         ))}
