@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Nav from "./Nav";
-import Footer from "./Footer";
-import { Suspense } from "react";
-import Loading from "./loading";
+import WrapperPage from "./WrapperPage";
 
 export const metadata: Metadata = {
   title: "스위쳐스",
@@ -32,9 +29,7 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${pretendard.variable} ${aldrich.variable}`}>
       <body className={"font-pretendard tracking-tight flex flex-col h-screen"}>
-        <Nav />
-        <div className="flex-grow">{children}</div>
-        <Footer />
+        <WrapperPage>{children}</WrapperPage>
       </body>
     </html>
   );

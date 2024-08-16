@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { PopoverGroup } from "@headlessui/react";
 import NavMainItem from "@/components/NavMainItem";
+import { signOut, useSession } from "next-auth/react";
 
 const subCategoryData = [
   [
@@ -44,6 +45,7 @@ const subCategoryData = [
 
 export default function Nav() {
   const pathname = usePathname();
+  const { data: session, status } = useSession();
 
   return (
     <div>
@@ -82,12 +84,27 @@ export default function Nav() {
                 </div>
               </PopoverGroup>
               <div className="flex flex-1 items-center justify-end">
-                <Link
-                  className="w-max ml-4 cursor-pointer hover:font-semibold"
-                  href="/login"
-                >
-                  로그인
-                </Link>
+                {status === "authenticated" && session ? (
+                  <>
+                    <span className="text-gray-500">
+                      {session?.user?.email ?? ""}
+                    </span>
+                    <Link
+                      className="ml-4 cursor-pointer hover:font-semibold"
+                      href="#"
+                      onClick={() => signOut()}
+                    >
+                      로그아웃
+                    </Link>
+                  </>
+                ) : (
+                  <Link
+                    className="w-max ml-4 cursor-pointer hover:font-semibold"
+                    href="/login"
+                  >
+                    로그인
+                  </Link>
+                )}
               </div>
             </div>
           </div>
