@@ -1,5 +1,6 @@
 "use client";
 
+import BaseDialog from "@/components/BaseDialog";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -16,6 +17,7 @@ export default function Login() {
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const [errorMessage, setErrorMessage] = useState<string>();
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   const handleLogin = () => {
     if (!emailRef.current || !passwordRef.current) {
@@ -76,7 +78,7 @@ export default function Login() {
         console.log("res:", res);
         if (res.status === 201) {
           setErrorMessage("");
-          alert("회원 가입을 환영합니다. 로그인 해주세요.");
+          setDialogOpen(true);
         } else if (res.status === 409) {
           setErrorMessage("이미 가입된 이메일입니다.");
         } else {
@@ -96,6 +98,14 @@ export default function Login() {
 
   return (
     <div className="w-6xl mx-auto h-full flex justify-center items-center">
+      <BaseDialog
+        open={dialogOpen}
+        setOpen={setDialogOpen}
+        title="환영합니다!"
+        content={["스케쳐스의 회원이 되신 것을 축하합니다.", "로그인해주세요"]}
+        buttonText="로그인"
+        handleYes={handleLogin}
+      />
       <div className="w-3xl mx-auto flex items-center gap-2">
         <div className="w-80">
           <img
