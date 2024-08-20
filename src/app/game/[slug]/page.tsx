@@ -59,7 +59,7 @@ export default function GameDetail({ params }: { params: { slug: string } }) {
                 />
               </div>
             </div>
-            <div className="grid col-span-1 gap-2">
+            <div className="flex flex-col flex-initial col-span-1 gap-2">
               <div className="flex items-center gap-3">
                 <span className="text-lg">
                   &#65510; {gameInfo?.price?.toLocaleString()}
