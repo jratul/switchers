@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Divider from "@/components/Divider";
 import MainProductListItem from "@/components/MainProductListItem";
 import { GameInfo } from "@/constants/types";
+import Carousel from "./Carousel";
 
 export default function Home() {
   const [popularList, setPopularList] = useState<GameInfo[]>([]);
@@ -36,7 +37,8 @@ export default function Home() {
 
   return (
     <div>
-      <div className="relative">
+      <Carousel />
+      {/* <div className="relative">
         <div className="absolute inset-0 overflow-hidden">
           <img
             alt="zelda promo"
@@ -63,7 +65,7 @@ export default function Home() {
             보러가기
           </a>
         </div>
-      </div>
+      </div> */}
       <section className="mt-5 mx-auto max-w-6xl">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-extrabold text-gray-900">인기 순위</h2>
