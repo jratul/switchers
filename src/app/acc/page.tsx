@@ -15,13 +15,13 @@ export default function AccList() {
         </div>
         <div className="col-span-1 lg:col-span-3 p-3">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
-            {accList.map((accInfo, idx) => (
+            {/* {accList.map((accInfo, idx) => (
               <OtherProductListItem
                 productInfo={accInfo}
                 idx={idx}
                 key={accInfo.name}
               />
-            ))}
+            ))} */}
           </div>
         </div>
       </div>

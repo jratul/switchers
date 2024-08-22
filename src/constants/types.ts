@@ -22,11 +22,12 @@ export interface GameInfo extends WithId<Document> {
   score: number;
 }
 
-export interface ProductInfo {
+export interface ProductInfo extends WithId<Document> {
   name: string;
   price: number;
   image: string;
   desc: string;
+  type: string;
 }
 
 export interface ReviewInfo extends WithId<Document> {
@@ -34,4 +35,14 @@ export interface ReviewInfo extends WithId<Document> {
   score: number;
   date: Date;
   content: string;
+}
+
+export interface EventInfo {
+  title: string;
+  content: string;
+  image: string;
+  totalPrice: number;
+  games: string[];
+  devices: string[];
+  accs: string[];
 }

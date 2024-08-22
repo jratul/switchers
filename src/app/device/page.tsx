@@ -1,7 +1,29 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import OtherProductListItem from "@/components/OtherProductListItem";
-import { deviceList } from "@/constants/data";
+import { ProductInfo } from "@/constants/types";
 
 export default function DeviceList() {
+  const [deviceList, setDeviceList] = useState<ProductInfo[]>([]);
+
+  useEffect(() => {
+    fetch(`/api/devices`, { method: "GET" })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error();
+        }
+
+        return res.json();
+      })
+      .then((gameList) => {
+        setDeviceList(gameList);
+      })
+      .catch((error) => {
+        alert(`${error}`);
+      });
+  }, []);
+
   return (
     <div className="my-5 mx-auto max-w-6xl">
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-3">
@@ -18,11 +40,7 @@ export default function DeviceList() {
         <div className="col-span-1 lg:col-span-3 p-3">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
             {deviceList.map((deviceInfo, idx) => (
-              <OtherProductListItem
-                productInfo={deviceInfo}
-                idx={idx}
-                key={idx}
-              />
+              <OtherProductListItem productInfo={deviceInfo} key={idx} />
             ))}
           </div>
         </div>
