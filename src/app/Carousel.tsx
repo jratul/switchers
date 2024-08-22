@@ -42,19 +42,19 @@ const data = [
   {
     image: "/images/carousel/zelda-promo.jpg",
     title: "젤다의 전설",
-    href: "#",
+    href: "/event",
     content: <Zelda />,
   },
   {
     image: "/images/carousel/pokemon.jpg",
     title: "포켓몬",
-    href: "#",
+    href: "/event",
     content: <Pokemon />,
   },
   {
     image: "/images/carousel/animal-crossing.jpg",
     title: "동물의 숲",
-    href: "#",
+    href: "/event",
     content: <AnimalCrossing />,
   },
 ];
@@ -71,16 +71,15 @@ export default function Carousel() {
   };
 
   return (
-    <div className="h-[70vh] overflow-hidden">
+    <div className="w-screen h-[50vh] relative overflow-hidden">
       <div
+        style={{ transform: `translateX(-${100 * idx}vw)` }}
         className={`w-[${
           100 * data.length
-        }vw] transition-transform ease-out duration-500 -translate-x-[${
-          100 * idx
-        }vw]`}
+        }vw] h-full flex transition-transform ease-out duration-500`}
       >
         {data.map((item, idx) => (
-          <div className="w-screen float-left relative" key={idx}>
+          <div className="w-screen flex-shrink-0 relative" key={idx}>
             <div className="absolute inset-0 bg-gray-900 opacity-70" />
             <div className="absolute w-full h-full">
               <div className="relative mx-auto flex flex-col items-center py-[20vh] text-center">
@@ -105,11 +104,11 @@ export default function Carousel() {
         ))}
       </div>
       <ChevronLeftIcon
-        className="w-20 h-20 absolute text-red-500 text-5xl font-bold left-2 top-[30vh] cursor-pointer z-10 hover:text-red-300"
+        className="w-20 h-20 absolute text-red-500 text-5xl font-bold left-2 top-[20vh] cursor-pointer z-10 hover:text-red-300"
         onClick={handleLeft}
       />
       <ChevronRightIcon
-        className="w-20 h-20 absolute text-red-500 text-5xl font-bold right-2 top-[30vh] cursor-pointer z-10 hover:text-red-300"
+        className="w-20 h-20 absolute text-red-500 text-5xl font-bold right-2 top-[20vh] cursor-pointer z-10 hover:text-red-300"
         onClick={handleRight}
       />
     </div>

@@ -1,5 +1,4 @@
 import { ProductInfo } from "@/constants/types";
-import Rating from "./Rating";
 
 interface Props {
   productInfo: ProductInfo;
@@ -15,7 +14,7 @@ export default function OtherProductListItem({ productInfo }: Props) {
       <div className="h-64 overflow-hidden rounded-lg">
         <img
           alt={productInfo.name}
-          src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/devices/${productInfo?.image}`}
+          src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/devices/${productInfo.image}`}
           className="h-full w-full object-cover object-center transition duration-100 hover:scale-105 ease-in-out "
         />
       </div>
