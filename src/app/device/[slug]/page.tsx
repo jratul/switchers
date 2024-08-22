@@ -1,34 +1,31 @@
 "use client";
-import Rating from "@/components/Rating";
-import { GameInfo } from "@/constants/types";
+
 import Link from "next/link";
 import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { format } from "date-fns";
 import Loading from "@/app/loading";
-import Divider from "@/components/Divider";
-import Review from "./Review";
+import { ProductInfo } from "@/constants/types";
 
-export default function GameDetail({ params }: { params: { slug: string } }) {
+export default function DeviceDetail({ params }: { params: { slug: string } }) {
   const router = useRouter();
 
-  const [gameInfo, setGameInfo] = useState<GameInfo>();
+  const [deviceInfo, setDeviceInfo] = useState<ProductInfo>();
 
   useEffect(() => {
     if (!params.slug) {
       notFound();
     }
 
-    fetch(`/api/games/${params.slug}`)
+    fetch(`/api/devices/${params.slug}`)
       .then((res) => {
         if (!res.ok) {
           notFound();
         }
         return res.json();
       })
-      .then((gameInfo) => {
-        setGameInfo(gameInfo);
+      .then((deviceInfo) => {
+        setDeviceInfo(deviceInfo);
       })
       .catch(() => {
         notFound();
@@ -44,46 +41,30 @@ export default function GameDetail({ params }: { params: { slug: string } }) {
       >
         &larr;
       </Link>
-      {!gameInfo ? (
+      {!deviceInfo ? (
         <Loading />
       ) : (
         <>
           <span className="align-middle text-4xl text-red-500 font-bold">
-            {gameInfo?.name}
+            {deviceInfo?.name}
           </span>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
             <div className="col-span-1">
               <div>
                 <img
-                  src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${gameInfo?.image}`}
+                  src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/devices/${deviceInfo?.image}`}
                 />
               </div>
             </div>
             <div className="flex flex-col flex-initial col-span-1 gap-2">
-              <div className="flex items-center gap-3">
-                <span className="text-lg">
-                  &#65510; {gameInfo?.price?.toLocaleString()}
-                </span>
-                |
-                <Rating rating={4.5} />
-                <span>4.5</span>
-              </div>
+              <span className="text-lg">
+                &#65510; {deviceInfo?.price?.toLocaleString()}
+              </span>
               <div>
-                <div className="text-xl text-red-500 font-semibold">장르</div>
-                <div>{gameInfo?.genre}</div>
+                <div className="text-xl text-red-500 font-semibold">종류</div>
+                <div>{deviceInfo?.type}</div>
               </div>
-              <div>
-                <div className="text-xl text-red-500 font-semibold">출시일</div>
-                <div>
-                  {gameInfo?.release &&
-                    format(gameInfo?.release, "yyyy년 MM월 dd일")}
-                </div>
-              </div>
-              <div>
-                <div className="text-xl text-red-500 font-semibold">제작사</div>
-                <div>{gameInfo?.company}</div>
-              </div>
-              <p className="text-gray-500">{gameInfo?.desc}</p>
+              <p className="text-gray-500">{deviceInfo?.desc}</p>
               <Link
                 className="py-2 text-white text-center bg-red-500 hover:bg-red-400 rounded"
                 href="#"
@@ -98,8 +79,6 @@ export default function GameDetail({ params }: { params: { slug: string } }) {
               </Link>
             </div>
           </div>
-          <Divider />
-          <Review gameId={params.slug} />
         </>
       )}
     </div>
