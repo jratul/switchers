@@ -13,8 +13,12 @@ import { MinusIcon, PlusIcon } from "@heroicons/react/20/solid";
 import GameProductListItem from "@/components/GameProductListItem";
 import { filterData } from "@/constants/data";
 import { GameInfo } from "@/constants/types";
+import { useSearchParams } from "next/navigation";
 
 export default function GameList() {
+  const params = useSearchParams();
+  const filterParam = params.get("filter");
+
   const [gameList, setGameList] = useState<GameInfo[]>([]);
   const [conditionList, setConditionList] = useState<any[]>([{}]);
 
@@ -41,6 +45,60 @@ export default function GameList() {
   };
 
   useEffect(() => {
+    if (!filterParam) {
+      return;
+    }
+
+    let inputName;
+
+    switch (filterParam) {
+      case "mario":
+        inputName = "마리오";
+        break;
+      case "pokemon":
+        inputName = "포켓몬";
+        break;
+      case "zelda":
+        inputName = "젤다의 전설";
+        break;
+      case "kerby":
+        inputName = "커비";
+        break;
+      case "animal":
+        inputName = "동물의 숲";
+        break;
+    }
+
+    if (!inputName) {
+      return;
+    }
+
+    setCheckState(() => {
+      const checkState: { [key: string]: boolean } = {};
+
+      checkState[inputName] = true;
+
+      return checkState;
+    });
+  }, [filterParam]);
+
+  useEffect(() => {
+    setConditionList(() => {
+      const conditionList: any[] = [];
+
+      Object.keys(checkState).map((filterName) => {
+        conditionList.push({ type: filterName });
+      });
+
+      if (conditionList.length === 0) {
+        conditionList.push({});
+      }
+
+      return conditionList;
+    });
+  }, [checkState]);
+
+  useEffect(() => {
     fetch(`/api/games`, {
       method: "POST",
       body: JSON.stringify(conditionList),
@@ -59,22 +117,6 @@ export default function GameList() {
         alert(`${error}`);
       });
   }, [conditionList]);
-
-  useEffect(() => {
-    setConditionList(() => {
-      const conditionList: any[] = [];
-
-      Object.keys(checkState).map((filterName) => {
-        conditionList.push({ type: filterName });
-      });
-
-      if (conditionList.length === 0) {
-        conditionList.push({});
-      }
-
-      return conditionList;
-    });
-  }, [checkState]);
 
   return (
     <div className="my-5 mx-auto max-w-6xl p-5">
@@ -113,7 +155,7 @@ export default function GameList() {
                     <div className="flex items-center ml-5" key={item}>
                       <input
                         defaultValue={item}
-                        defaultChecked={false}
+                        checked={checkState[item] ? true : false}
                         onChange={handleCheckBoxChange}
                         id={`filter-${filterData.title}-${item}`}
                         name={`${filterData.title}[]`}
