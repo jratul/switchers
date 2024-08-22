@@ -18,7 +18,7 @@ export default function Error({
     <div className="flex mx-auto w-6xl h-full justify-center items-center flex-col tracking-tighter">
       <div className="w-64 h-64">
         <img
-          src="/images/luxio.webp"
+          src="/images/ymw.webp"
           alt="luxio"
           className="h-full w-full object-cover object-center"
         />

@@ -38,34 +38,6 @@ export default function Home() {
   return (
     <div>
       <Carousel />
-      {/* <div className="relative">
-        <div className="absolute inset-0 overflow-hidden">
-          <img
-            alt="zelda promo"
-            src="images/zelda-promo.jpg"
-            className="h-full w-full object-cover object-center"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gray-900 opacity-50" />
-        <div className="relative mx-auto flex flex-col items-center py-52 text-center">
-          <h1 className="text-4xl font-bold text-red-600 lg:text-6xl">
-            젤다의 전설
-          </h1>
-          <p className="mt-4 text-xl text-white">
-            왕국의 눈물 출시 기념
-            <br />
-            젤다의 전설{" "}
-            <span className="font-semibold text-red-300">패키지 할인</span>{" "}
-            이벤트
-          </p>
-          <a
-            href="#"
-            className="mt-8 rounded-md bg-red-500 px-8 py-3 text-base font-medium text-gray-200 hover:bg-red-400"
-          >
-            보러가기
-          </a>
-        </div>
-      </div> */}
       <section className="mt-5 mx-auto max-w-6xl">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-extrabold text-gray-900">인기 순위</h2>

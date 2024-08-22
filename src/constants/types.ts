@@ -46,3 +46,8 @@ export interface EventInfo {
   devices: string[];
   accs: string[];
 }
+
+export interface FilterInfo {
+  title: string;
+  items: string[];
+}
