@@ -3,8 +3,6 @@
 import { SessionProvider } from "next-auth/react";
 import Nav from "./Nav";
 import Footer from "./Footer";
-import { Suspense } from "react";
-import Loading from "./loading";
 
 export default function WrapperPage({
   children,
@@ -14,9 +12,7 @@ export default function WrapperPage({
   return (
     <SessionProvider>
       <Nav />
-      <div className="flex-grow">
-        <Suspense fallback={<Loading />}>{children}</Suspense>
-      </div>
+      <div className="flex-grow">{children}</div>
       <Footer />
     </SessionProvider>
   );

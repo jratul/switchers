@@ -51,3 +51,10 @@ export interface FilterInfo {
   title: string;
   items: string[];
 }
+
+export interface CartInfo extends WithId<Document> {
+  name: string;
+  price: number;
+  count: number;
+  image: string;
+}

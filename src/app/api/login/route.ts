@@ -1,3 +1,4 @@
+import { authOptions } from "@/util/authOptions";
 import { connectDB } from "@/util/database";
 import bcrypt from "bcrypt";
 import { getServerSession } from "next-auth";
@@ -5,7 +6,7 @@ import { getServerSession } from "next-auth";
 const emailRegex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
 
 export async function POST(req: Request) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   if (session) {
     return Response.redirect("/");
   }

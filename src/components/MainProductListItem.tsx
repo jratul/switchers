@@ -8,7 +8,7 @@ export default function MainProductListItem({
   return (
     <a
       key={gameInfo.name}
-      href={`game/${gameInfo._id.toString()}`}
+      href={`games/${gameInfo._id.toString()}`}
       className="relative h-72 w-48 flex flex-col overflow-hidden rounded-lg p-6 hover:opacity-75"
     >
       <span aria-hidden="true" className="absolute inset-0">

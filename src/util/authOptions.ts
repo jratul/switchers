@@ -61,6 +61,6 @@ export const authOptions: AuthOptions = {
     signIn: "/login",
     newUser: "/login",
   },
-  secret: process.env.JWT_SECRET,
+  secret: process.env.NEXTAUTH_SECRET as string,
   adapter: MongoDBAdapter(connectDB),
 };

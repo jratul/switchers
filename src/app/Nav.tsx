@@ -6,6 +6,9 @@ import { PopoverGroup } from "@headlessui/react";
 import NavMainItem from "@/components/NavMainItem";
 import { signOut, useSession } from "next-auth/react";
 import { ShoppingCartIcon } from "@heroicons/react/20/solid";
+import { authenticated } from "@/constants/data";
+import { useEffect, useState } from "react";
+import useCartCountStore from "@/hooks/useCartCountStore";
 
 const subCategoryData = [
   [
@@ -26,6 +29,27 @@ const subCategoryData = [
 export default function Nav() {
   const pathname = usePathname();
   const { data: session, status } = useSession();
+  const cartCount = useCartCountStore((state) => state.cartCount);
+  const updateCartCount = useCartCountStore((state) => state.updateCartCount);
+
+  useEffect(() => {
+    if (!session?.user?.email) {
+      return;
+    }
+
+    fetch("/api/cart", {
+      method: "POST",
+      body: JSON.stringify({ userEmail: session?.user?.email }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then((cartList) => {
+        updateCartCount(cartList.length);
+      });
+  }, [session?.user?.email]);
 
   return (
     <div>
@@ -64,16 +88,21 @@ export default function Nav() {
                 </div>
               </PopoverGroup>
               <div className="flex flex-1 items-center justify-end">
-                {status === "authenticated" && session ? (
+                {status === authenticated && session ? (
                   <>
                     <span className="text-gray-500">
                       {session?.user?.email ?? ""}
                     </span>
                     <Link
-                      className="ml-4 cursor-pointer hover:font-semibold"
-                      href="#"
+                      className="ml-4 cursor-pointer hover:font-semibold relative"
+                      href="/cart"
                     >
-                      <ShoppingCartIcon />
+                      {cartCount > 0 && (
+                        <span className="w-4 h-4 text-center absolute right-0 top-0 bg-red-500 text-white text-xs rounded-full">
+                          {cartCount}
+                        </span>
+                      )}
+                      <ShoppingCartIcon className="w-8 h-8" />
                     </Link>
                     <Link
                       className="ml-4 cursor-pointer hover:font-semibold"
@@ -83,7 +112,7 @@ export default function Nav() {
                       로그아웃
                     </Link>
                   </>
-                ) : (
+                ) : status === "loading" ? null : (
                   <Link
                     className="w-max ml-4 cursor-pointer hover:font-semibold"
                     href="/login"
