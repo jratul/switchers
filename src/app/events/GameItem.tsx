@@ -35,7 +35,7 @@ export default function GameItem({ gameId }: { gameId: string }) {
           />
         </>
       ) : (
-        <Spinner />
+        <Spinner size={32} />
       )}
       <span className="relative mt-auto text-center text-xl font-bold text-white">
         {gameInfo?.name}
