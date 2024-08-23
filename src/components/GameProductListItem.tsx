@@ -9,7 +9,7 @@ export default function GameProductListItem({ gameInfo }: Props) {
   return (
     <a
       key={gameInfo.name}
-      href={`game/${gameInfo._id.toString()}`}
+      href={`games/${gameInfo._id.toString()}`}
       className="mb-5"
     >
       <div className="h-64 overflow-hidden rounded-lg">

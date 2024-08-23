@@ -14,6 +14,7 @@ import GameProductListItem from "@/components/GameProductListItem";
 import { filterData } from "@/constants/data";
 import { GameInfo } from "@/constants/types";
 import { useSearchParams } from "next/navigation";
+import Loading from "../loading";
 
 export default function GameList() {
   const params = useSearchParams();
@@ -176,11 +177,15 @@ export default function GameList() {
           </form>
         </div>
         <div className="col-span-1 lg:col-span-3 p-3">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
-            {gameList.map((gameInfo) => (
-              <GameProductListItem gameInfo={gameInfo} key={gameInfo.name} />
-            ))}
-          </div>
+          {gameList.length > 0 ? (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+              {gameList.map((gameInfo) => (
+                <GameProductListItem gameInfo={gameInfo} key={gameInfo.name} />
+              ))}
+            </div>
+          ) : (
+            <Loading />
+          )}
         </div>
       </div>
     </div>

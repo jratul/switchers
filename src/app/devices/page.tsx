@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import OtherProductListItem from "@/components/OtherProductListItem";
 import { ProductInfo } from "@/constants/types";
+import Loading from "../loading";
 
 export default function DeviceList() {
   const [deviceList, setDeviceList] = useState<ProductInfo[]>([]);
@@ -38,11 +39,19 @@ export default function DeviceList() {
           </p>
         </div>
         <div className="col-span-1 lg:col-span-3 p-3">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
-            {deviceList.map((deviceInfo, idx) => (
-              <OtherProductListItem productInfo={deviceInfo} key={idx} />
-            ))}
-          </div>
+          {deviceList.length > 0 ? (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+              {deviceList.map((deviceInfo) => (
+                <OtherProductListItem
+                  key={deviceInfo.name}
+                  productInfo={deviceInfo}
+                  dirName="devices"
+                />
+              ))}
+            </div>
+          ) : (
+            <Loading />
+          )}
         </div>
       </div>
     </div>

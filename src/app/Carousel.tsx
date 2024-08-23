@@ -42,19 +42,19 @@ const data = [
   {
     image: "/images/carousel/zelda-promo.jpg",
     title: "젤다의 전설",
-    href: "/event",
+    href: "/events",
     content: <Zelda />,
   },
   {
     image: "/images/carousel/pokemon.jpg",
     title: "포켓몬",
-    href: "/event",
+    href: "/events",
     content: <Pokemon />,
   },
   {
     image: "/images/carousel/animal-crossing.jpg",
     title: "동물의 숲",
-    href: "/event",
+    href: "/events",
     content: <AnimalCrossing />,
   },
 ];
