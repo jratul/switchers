@@ -17,6 +17,9 @@ import { useSearchParams } from "next/navigation";
 import Loading from "../loading";
 
 export default function GameList() {
+  const controller = new AbortController();
+  const signal = controller.signal;
+
   const params = useSearchParams();
   const filterParam = params.get("filter");
 
@@ -103,6 +106,7 @@ export default function GameList() {
     fetch(`/api/games`, {
       method: "POST",
       body: JSON.stringify(conditionList),
+      signal,
     })
       .then((res) => {
         if (!res.ok) {
@@ -112,8 +116,15 @@ export default function GameList() {
         return res.json();
       })
       .then((gameList) => {
-        setGameList(gameList);
-      });
+        if (!signal.aborted) {
+          setGameList(gameList);
+        }
+      })
+      .catch(() => {});
+
+    return () => {
+      controller.abort();
+    };
   }, [conditionList]);
 
   return (
@@ -162,7 +173,7 @@ export default function GameList() {
                       />
                       <label
                         htmlFor={`filter-${filterData.title}-${item}`}
-                        className="ml-3 text-md text-gray-600"
+                        className="ml-3 text-md text-gray-600 cursor-pointer"
                       >
                         {item}
                       </label>
