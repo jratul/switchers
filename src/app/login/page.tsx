@@ -114,7 +114,7 @@ export default function Login() {
             className="h-full w-full object-cover object-center rounded"
           />
         </div>
-        <div className="w-60 grid gap-2">
+        <form className="w-60 grid gap-2">
           <input
             type="text"
             placeholder="이메일"
@@ -144,7 +144,7 @@ export default function Login() {
           >
             회원가입
           </Link>
-        </div>
+        </form>
       </div>
     </div>
   );

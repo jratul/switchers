@@ -1,8 +1,9 @@
 "use client";
+
 import Rating from "@/components/Rating";
 import { GameInfo } from "@/constants/types";
 import Link from "next/link";
-import { notFound, redirect, useRouter } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { format } from "date-fns";
@@ -26,10 +27,6 @@ export default function GameDetail({ params }: { params: { slug: string } }) {
   const updateCartCount = useCartCountStore((state) => state.updateCartCount);
 
   const handleAddCart = () => {
-    if (!session || status !== authenticated || !session?.user?.email) {
-      redirect("/login");
-    }
-
     if (!gameInfo) {
       return;
     }
@@ -43,10 +40,10 @@ export default function GameDetail({ params }: { params: { slug: string } }) {
         userEmail: session?.user?.email as string,
       }),
     }).then((res) => {
-      if (res.status === 409) {
+      if (res.status === 400 || res.status === 401) {
+        router.push("/login");
+      } else if (res.status === 409) {
         setErrorDialogOpen(true);
-      } else if (!res.ok) {
-        throw new Error();
       } else {
         setDoneDialogOpen(true);
         updateCartCount(cartCount + 1);

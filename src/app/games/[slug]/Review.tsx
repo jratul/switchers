@@ -35,7 +35,6 @@ export default function Review({ gameId }: { gameId: string }) {
         return res.json();
       })
       .then((reviewList) => {
-        console.log("reviewList:", reviewList);
         setReviewList(reviewList);
       })
       .catch(() => {});
