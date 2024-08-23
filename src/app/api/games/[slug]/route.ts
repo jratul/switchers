@@ -6,7 +6,7 @@ export async function GET(
   { params }: { params: { slug: string } }
 ) {
   if (!params.slug) {
-    return Response.json({ status: 400 });
+    return Response.json("not found", { status: 400 });
   }
 
   const db = (await connectDB).db("switchers");
@@ -19,6 +19,6 @@ export async function GET(
 
     return Response.json(gameInfo, { status: 200 });
   } catch (error) {
-    return Response.json({ status: 404 });
+    return Response.json("not found", { status: 404 });
   }
 }

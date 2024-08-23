@@ -1,7 +1,6 @@
 "use client";
 
 import { CartInfo } from "@/constants/types";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
@@ -75,13 +74,12 @@ export default function Cart() {
   return (
     <div className="mx-auto max-w-6xl p-5">
       <div className="flex items-center">
-        <Link
-          href="#"
+        <button
           onClick={() => router.back()}
           className="inline-block mr-3 rounded-md bg-red-500 px-5 py-1 text-base font-medium text-white hover:bg-red-400"
         >
           &larr;
-        </Link>
+        </button>
         <span className="text-red-500 text-4xl font-bold">장바구니</span>
       </div>
       {loading ? (
@@ -155,13 +153,9 @@ export default function Cart() {
                 </form>
               </div>
               <div>
-                <Link
-                  href="#"
-                  scroll={false}
-                  className="my-5 px-3 py-2 text-white bg-red-500 hover:bg-red-300"
-                >
+                <button className="my-3 px-3 py-2 text-white bg-red-500 hover:bg-red-300">
                   구매하기
-                </Link>
+                </button>
               </div>
             </div>
           </div>
