@@ -1,3 +1,5 @@
+import { ReviewInfo } from "@/constants/types";
+import useReviewStat from "@/hooks/useReviewStat";
 import { connectDB } from "@/util/database";
 import { ObjectId } from "mongodb";
 
@@ -6,7 +8,7 @@ export async function GET(
   { params }: { params: { slug: string } }
 ) {
   if (!params.slug) {
-    return Response.json([], { status: 400 });
+    return Response.json("bad request", { status: 400 });
   }
 
   const db = (await connectDB).db("switchers");
@@ -20,8 +22,10 @@ export async function GET(
       })
       .toArray();
 
-    return Response.json(reviewList, { status: 200 });
+    const reviewStat = useReviewStat(reviewList as ReviewInfo[]);
+
+    return Response.json({ reviewList, reviewStat }, { status: 200 });
   } catch (error) {
-    return Response.json([], { status: 404 });
+    return Response.json("server error", { status: 500 });
   }
 }

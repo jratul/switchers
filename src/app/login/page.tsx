@@ -39,7 +39,6 @@ export default function Login() {
       redirect: false,
     })
       .then((res) => {
-        console.log("res:", res);
         if (!res?.ok) {
           setErrorMessage("로그인 정보가 올바르지 않습니다.");
           return;
@@ -75,7 +74,6 @@ export default function Login() {
       body: formData,
     })
       .then((res) => {
-        console.log("res:", res);
         if (res.status === 201) {
           setErrorMessage("");
           setDialogOpen(true);

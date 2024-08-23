@@ -11,7 +11,6 @@ import Loading from "@/app/loading";
 import Divider from "@/components/Divider";
 import Review from "./Review";
 import { useSession } from "next-auth/react";
-import { authenticated } from "@/constants/data";
 import BaseDialog from "@/components/BaseDialog";
 import useCartCountStore from "@/hooks/useCartCountStore";
 
@@ -116,9 +115,6 @@ export default function GameDetail({ params }: { params: { slug: string } }) {
                 <span className="text-lg">
                   &#65510; {gameInfo?.price?.toLocaleString()}
                 </span>
-                |
-                <Rating rating={4.5} />
-                <span>4.5</span>
               </div>
               <div>
                 <div className="text-xl text-red-500 font-semibold">장르</div>

@@ -6,7 +6,7 @@ import Divider from "./Divider";
 export default function ReviewItem({ reviewInfo }: { reviewInfo: ReviewInfo }) {
   return (
     <div>
-      <div className="text-xl font-bold mb-1">{reviewInfo?.userName}</div>
+      <div className="text-xl font-bold mb-1">{reviewInfo?.userEmail}</div>
       <div className="mb-1">
         <Rating rating={reviewInfo?.score ?? 0} />
       </div>
