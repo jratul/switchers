@@ -71,7 +71,7 @@ export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
             {eventInfo.image ? (
               <img src={eventInfo.image} alt={eventInfo.title} />
             ) : (
-              <Spinner />
+              <Spinner size={32} />
             )}
           </div>
         </div>

@@ -1,6 +1,8 @@
 "use client";
 
 import BaseDialog from "@/components/BaseDialog";
+import Spinner from "@/components/Spinner";
+import clsx from "clsx";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -18,6 +20,7 @@ export default function Login() {
 
   const [errorMessage, setErrorMessage] = useState<string>();
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleLogin = () => {
     if (!emailRef.current || !passwordRef.current) {
@@ -32,6 +35,8 @@ export default function Login() {
       setErrorMessage("입력이 올바르지 않습니다.");
       return;
     }
+
+    setLoading(true);
 
     signIn("credentials", {
       email: email,
@@ -48,6 +53,9 @@ export default function Login() {
       })
       .catch(() => {
         setErrorMessage("에러가 발생했습니다.");
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -69,6 +77,8 @@ export default function Login() {
     formData.append("email", email);
     formData.append("password", password);
 
+    setLoading(true);
+
     fetch(`/api/join`, {
       method: "POST",
       body: formData,
@@ -85,6 +95,9 @@ export default function Login() {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -93,7 +106,6 @@ export default function Login() {
       handleLogin();
     }
   };
-
   return (
     <div className="w-6xl mx-auto h-full flex justify-center items-center">
       <BaseDialog
@@ -128,20 +140,20 @@ export default function Login() {
             onKeyDown={handleKeyDown}
           />
           <div className="text-red-500">{errorMessage ?? " "}</div>
-          <Link
+          <button
             className="py-2 text-white text-center bg-red-500 hover:bg-red-400 rounded"
-            href="#"
             onClick={handleLogin}
+            disabled={loading}
           >
-            로그인
-          </Link>
-          <Link
+            {loading ? <Spinner size={26} /> : <span>로그인</span>}
+          </button>
+          <button
             className="py-2 text-white text-center bg-red-500 hover:bg-red-400 rounded"
-            href="#"
             onClick={handleJoin}
+            disabled={loading}
           >
-            회원가입
-          </Link>
+            {loading ? <Spinner size={26} /> : <span>회원가입</span>}
+          </button>
         </form>
       </div>
     </div>
