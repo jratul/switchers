@@ -1,6 +1,6 @@
 import { ReviewInfo, ReviewStat } from "@/constants/types";
 
-export default function useReviewStat(reviewList: ReviewInfo[]) {
+export default function getReviewStat(reviewList: ReviewInfo[]) {
   const reviewStat: ReviewStat = {
     total: 0,
     average: 0,

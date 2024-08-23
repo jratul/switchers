@@ -1,6 +1,7 @@
 import { ReviewInfo } from "@/constants/types";
-import useReviewStat from "@/hooks/useReviewStat";
+
 import { connectDB } from "@/util/database";
+import getReviewStat from "@/util/getReviewStat";
 import { ObjectId } from "mongodb";
 
 export async function GET(
@@ -22,7 +23,7 @@ export async function GET(
       })
       .toArray();
 
-    const reviewStat = useReviewStat(reviewList as ReviewInfo[]);
+    const reviewStat = getReviewStat(reviewList as ReviewInfo[]);
 
     return Response.json({ reviewList, reviewStat }, { status: 200 });
   } catch (error) {
