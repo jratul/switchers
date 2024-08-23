@@ -113,9 +113,6 @@ export default function GameList() {
       })
       .then((gameList) => {
         setGameList(gameList);
-      })
-      .catch((error) => {
-        alert(`${error}`);
       });
   }, [conditionList]);
 
