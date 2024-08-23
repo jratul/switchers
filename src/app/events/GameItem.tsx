@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { GameInfo } from "@/constants/types";
-import Skeleton from "@/components/Skeleton";
 import Spinner from "@/components/Spinner";
 
 export default function GameItem({ gameId }: { gameId: string }) {

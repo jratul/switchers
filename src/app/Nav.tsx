@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { PopoverGroup } from "@headlessui/react";
 import NavMainItem from "@/components/NavMainItem";
 import { signOut, useSession } from "next-auth/react";
+import { ShoppingCartIcon } from "@heroicons/react/20/solid";
 
 const subCategoryData = [
   [
@@ -17,19 +18,6 @@ const subCategoryData = [
         { name: "젤다의 전설", href: "/games?filter=zelda" },
         { name: "커비", href: "/games?filter=kerby" },
         { name: "동물의 숲", href: "/games?filter=animal" },
-      ],
-    },
-  ],
-  [
-    {
-      title: "카테고리",
-      subLinks: [
-        { name: "전체", href: "/accs" },
-        { name: "조이콘", href: "/accs?filter=joycon" },
-        { name: "케이스", href: "/accs?filter=case" },
-        { name: "충전기", href: "/accs?filter=charger" },
-        { name: "수납", href: "/accs?filter=storage" },
-        { name: "보호필름", href: "/accs?filter=film" },
       ],
     },
   ],
@@ -65,7 +53,7 @@ export default function Nav() {
                   />
                   <NavMainItem
                     title="액세서리"
-                    subData={subCategoryData[1]}
+                    href="/accs"
                     isOpen={pathname.startsWith("/accs")}
                   />
                   <NavMainItem
@@ -81,6 +69,12 @@ export default function Nav() {
                     <span className="text-gray-500">
                       {session?.user?.email ?? ""}
                     </span>
+                    <Link
+                      className="ml-4 cursor-pointer hover:font-semibold"
+                      href="#"
+                    >
+                      <ShoppingCartIcon />
+                    </Link>
                     <Link
                       className="ml-4 cursor-pointer hover:font-semibold"
                       href="#"

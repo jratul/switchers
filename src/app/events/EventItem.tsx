@@ -4,7 +4,7 @@ import Divider from "@/components/Divider";
 import { EventInfo } from "@/constants/types";
 import GameItem from "./GameItem";
 import ProductItem from "./ProductItem";
-import Skeleton from "@/components/Skeleton";
+import Spinner from "@/components/Spinner";
 
 export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
   return (
@@ -15,7 +15,7 @@ export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
             {eventInfo.image ? (
               <img src={eventInfo.image} alt={eventInfo.title} />
             ) : (
-              <Skeleton />
+              <Spinner />
             )}
           </div>
         </div>
