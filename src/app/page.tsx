@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 import Divider from "@/components/Divider";
 import MainProductListItem from "@/components/MainProductListItem";
 import { GameInfo } from "@/constants/types";
 import Carousel from "./Carousel";
+import Skeleton from "@/components/Skeleton";
+import Loading from "./loading";
 
 export default function Home() {
   const [popularList, setPopularList] = useState<GameInfo[]>([]);
@@ -42,7 +44,7 @@ export default function Home() {
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-extrabold text-gray-900">인기 순위</h2>
           <a
-            href="#"
+            href="/games"
             className="text-sm font-semibold text-red-500 hover:text-red-400"
           >
             더보기
@@ -51,16 +53,20 @@ export default function Home() {
         </div>
         <div className="mt-4 flow-root">
           <div className="-my-2">
-            <div className="relative box-content h-80 overflow-x-auto py-2 xl:overflow-visible">
-              <div className="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
-                {popularList.map((productItem) => (
-                  <MainProductListItem
-                    gameInfo={productItem}
-                    key={productItem.name}
-                  />
-                ))}
+            {popularList.length > 0 ? (
+              <div className="relative box-content h-80 overflow-x-auto py-2 xl:overflow-visible">
+                <div className="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
+                  {popularList.map((productItem) => (
+                    <MainProductListItem
+                      gameInfo={productItem}
+                      key={productItem.name}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : (
+              <Loading />
+            )}
           </div>
         </div>
       </section>
@@ -69,7 +75,7 @@ export default function Home() {
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-extrabold text-gray-900">최근 출시</h2>
           <a
-            href="#"
+            href="/games"
             className="text-sm font-semibold text-red-500 hover:text-red-400"
           >
             더보기
@@ -78,16 +84,20 @@ export default function Home() {
         </div>
         <div className="mt-4 flow-root">
           <div className="-my-2">
-            <div className="relative box-content h-80 overflow-x-hidden py-2 xl:overflow-visible">
-              <div className="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
-                {recentList.map((productItem) => (
-                  <MainProductListItem
-                    gameInfo={productItem}
-                    key={productItem.name}
-                  />
-                ))}
+            {recentList.length > 0 ? (
+              <div className="relative box-content h-80 overflow-x-hidden py-2 xl:overflow-visible">
+                <div className="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
+                  {recentList.map((productItem) => (
+                    <MainProductListItem
+                      gameInfo={productItem}
+                      key={productItem.name}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : (
+              <Loading />
+            )}
           </div>
         </div>
       </section>

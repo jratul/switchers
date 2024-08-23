@@ -11,12 +11,12 @@ const subCategoryData = [
     {
       title: "시리즈",
       subLinks: [
-        { name: "전체", href: "/game" },
-        { name: "마리오", href: "/game?filter=mario" },
-        { name: "포켓몬", href: "/game?filter=pokemon" },
-        { name: "젤다의 전설", href: "/game?filter=zelda" },
-        { name: "커비", href: "/game?filter=kerby" },
-        { name: "동물의 숲", href: "/game?filter=animal" },
+        { name: "전체", href: "/games" },
+        { name: "마리오", href: "/games?filter=mario" },
+        { name: "포켓몬", href: "/games?filter=pokemon" },
+        { name: "젤다의 전설", href: "/games?filter=zelda" },
+        { name: "커비", href: "/games?filter=kerby" },
+        { name: "동물의 숲", href: "/games?filter=animal" },
       ],
     },
   ],
@@ -24,10 +24,12 @@ const subCategoryData = [
     {
       title: "카테고리",
       subLinks: [
-        { name: "전체", href: "/acc" },
-        { name: "조이콘", href: "/acc" },
-        { name: "케이스", href: "/acc" },
-        { name: "충전기", href: "/acc" },
+        { name: "전체", href: "/accs" },
+        { name: "조이콘", href: "/accs?filter=joycon" },
+        { name: "케이스", href: "/accs?filter=case" },
+        { name: "충전기", href: "/accs?filter=charger" },
+        { name: "수납", href: "/accs?filter=storage" },
+        { name: "보호필름", href: "/accs?filter=film" },
       ],
     },
   ],
@@ -54,22 +56,22 @@ export default function Nav() {
                   <NavMainItem
                     title="게임"
                     subData={subCategoryData[0]}
-                    isOpen={pathname.startsWith("/game")}
+                    isOpen={pathname.startsWith("/games")}
                   />
                   <NavMainItem
                     title="본체"
-                    href="/device"
-                    isOpen={pathname.startsWith("/device")}
+                    href="/devices"
+                    isOpen={pathname.startsWith("/devices")}
                   />
                   <NavMainItem
                     title="액세서리"
                     subData={subCategoryData[1]}
-                    isOpen={pathname.startsWith("/acc")}
+                    isOpen={pathname.startsWith("/accs")}
                   />
                   <NavMainItem
                     title="이벤트"
-                    href="/event"
-                    isOpen={pathname.startsWith("/event")}
+                    href="/events"
+                    isOpen={pathname.startsWith("/events")}
                   />
                 </div>
               </PopoverGroup>
