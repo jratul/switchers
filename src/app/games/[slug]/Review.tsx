@@ -81,7 +81,10 @@ export default function Review({ gameId }: { gameId: string }) {
                 </div>
               </dt>
               <dd className="ml-3 w-10 text-right text-sm tabular-nums text-gray-900">
-                {Math.round((groupItem.count / reviewStat.total) * 100)}%
+                {reviewStat.total === 0
+                  ? 0
+                  : Math.round((groupItem.count / reviewStat.total) * 100)}
+                %
               </dd>
             </div>
           ))}
