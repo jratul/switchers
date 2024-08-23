@@ -5,16 +5,16 @@ import { EventInfo } from "@/constants/types";
 import GameItem from "./GameItem";
 import ProductItem from "./ProductItem";
 import Spinner from "@/components/Spinner";
-import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { authenticated } from "@/constants/data";
 import BaseDialog from "@/components/BaseDialog";
 import useCartCountStore from "@/hooks/useCartCountStore";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
-  const { data: session, status } = useSession();
+  const router = useRouter();
+  const { data: session } = useSession();
 
   const [errorDialogOpen, setErrorDialogOpen] = useState<boolean>(false);
   const [doneDialogOpen, setDoneDialogOpen] = useState<boolean>(false);
@@ -23,10 +23,6 @@ export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
   const updateCartCount = useCartCountStore((state) => state.updateCartCount);
 
   const handleAddCart = () => {
-    if (!session || status !== authenticated || !session?.user?.email) {
-      redirect("/login");
-    }
-
     if (!eventInfo) {
       return;
     }
@@ -40,10 +36,10 @@ export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
         userEmail: session?.user?.email as string,
       }),
     }).then((res) => {
-      if (res.status === 409) {
+      if (res.status === 400 || res.status === 401) {
+        router.push("/login");
+      } else if (res.status === 409) {
         setErrorDialogOpen(true);
-      } else if (!res.ok) {
-        throw new Error();
       } else {
         setDoneDialogOpen(true);
         updateCartCount(cartCount + 1);

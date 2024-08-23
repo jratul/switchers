@@ -5,13 +5,13 @@ import { authOptions } from "@/util/authOptions";
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session || !session?.user?.email) {
-    return Response.json({ status: 401 });
+    return Response.json("unauthorized", { status: 401 });
   }
 
   const body = await req.json();
 
   if (!body.name || !body.price || !body.image) {
-    return Response.json({ status: 400 });
+    return Response.json("bad request", { status: 400 });
   }
 
   const db = (await connectDB).db("switchers");
@@ -33,8 +33,8 @@ export async function POST(req: Request) {
       userEmail: session?.user?.email as string,
     });
 
-    return Response.json({ status: 201 });
+    return Response.json("done to add", { status: 201 });
   } catch (error) {
-    return Response.json({ status: 401 });
+    return Response.json("server error", { status: 500 });
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { notFound, redirect, useRouter } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import Loading from "@/app/loading";
@@ -23,10 +23,6 @@ export default function DeviceDetail({ params }: { params: { slug: string } }) {
   const updateCartCount = useCartCountStore((state) => state.updateCartCount);
 
   const handleAddCart = () => {
-    if (!session || status !== authenticated || !session?.user?.email) {
-      redirect("/login");
-    }
-
     if (!deviceInfo) {
       return;
     }
@@ -40,10 +36,10 @@ export default function DeviceDetail({ params }: { params: { slug: string } }) {
         userEmail: session?.user?.email as string,
       }),
     }).then((res) => {
-      if (res.status === 409) {
+      if (res.status === 400 || res.status === 401) {
+        router.push("/login");
+      } else if (res.status === 409) {
         setErrorDialogOpen(true);
-      } else if (!res.ok) {
-        throw new Error();
       } else {
         setDoneDialogOpen(true);
         updateCartCount(cartCount + 1);
