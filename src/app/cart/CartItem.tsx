@@ -44,9 +44,9 @@ export default function CartItem({ cartInfo, refresh }: Props) {
           </div>
         </div>
         <div className="col-span-1 flex items-center">
-          <span className="cursor-pointer" onClick={handleDelete}>
+          <button className="cursor-pointer" onClick={handleDelete}>
             <TrashIcon className="w-5 h-5" />
-          </span>
+          </button>
         </div>
       </div>
     </div>

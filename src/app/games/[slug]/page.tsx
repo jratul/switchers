@@ -1,8 +1,6 @@
 "use client";
 
-import Rating from "@/components/Rating";
 import { GameInfo } from "@/constants/types";
-import Link from "next/link";
 import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -13,6 +11,7 @@ import Review from "./Review";
 import { useSession } from "next-auth/react";
 import BaseDialog from "@/components/BaseDialog";
 import useCartCountStore from "@/hooks/useCartCountStore";
+import Spinner from "@/components/Spinner";
 
 export default function GameDetail({ params }: { params: { slug: string } }) {
   const router = useRouter();
@@ -21,6 +20,7 @@ export default function GameDetail({ params }: { params: { slug: string } }) {
   const [gameInfo, setGameInfo] = useState<GameInfo>();
   const [errorDialogOpen, setErrorDialogOpen] = useState<boolean>(false);
   const [doneDialogOpen, setDoneDialogOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const cartCount = useCartCountStore((state) => state.cartCount);
   const updateCartCount = useCartCountStore((state) => state.updateCartCount);
@@ -30,6 +30,8 @@ export default function GameDetail({ params }: { params: { slug: string } }) {
       return;
     }
 
+    setLoading(true);
+
     fetch("/api/cart/add", {
       method: "POST",
       body: JSON.stringify({
@@ -38,16 +40,20 @@ export default function GameDetail({ params }: { params: { slug: string } }) {
         image: `${process.env.NEXT_PUBLIC_BUCKET_URL}/${gameInfo.image}`,
         userEmail: session?.user?.email as string,
       }),
-    }).then((res) => {
-      if (res.status === 400 || res.status === 401) {
-        router.push("/login");
-      } else if (res.status === 409) {
-        setErrorDialogOpen(true);
-      } else {
-        setDoneDialogOpen(true);
-        updateCartCount(cartCount + 1);
-      }
-    });
+    })
+      .then((res) => {
+        if (res.status === 400 || res.status === 401) {
+          router.push("/login");
+        } else if (res.status === 409) {
+          setErrorDialogOpen(true);
+        } else {
+          setDoneDialogOpen(true);
+          updateCartCount(cartCount + 1);
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -72,13 +78,12 @@ export default function GameDetail({ params }: { params: { slug: string } }) {
 
   return (
     <div className="mx-auto max-w-6xl p-5">
-      <Link
-        href="#"
+      <button
         onClick={() => router.back()}
         className="inline-block m-3 rounded-md bg-red-500 px-5 py-1 text-base font-medium text-white hover:bg-red-400"
       >
         &larr;
-      </Link>
+      </button>
       {!gameInfo ? (
         <Loading />
       ) : (
@@ -132,14 +137,13 @@ export default function GameDetail({ params }: { params: { slug: string } }) {
                 <div>{gameInfo?.company}</div>
               </div>
               <p className="text-gray-500">{gameInfo?.desc}</p>
-              <Link
-                href="#"
+              <button
                 className="py-2 text-white text-center bg-red-500 hover:bg-red-400 rounded"
                 onClick={handleAddCart}
-                scroll={false}
+                disabled={loading}
               >
-                장바구니에 넣기
-              </Link>
+                {loading ? <Spinner size={26} /> : <span>장바구니에 넣기</span>}
+              </button>
             </div>
           </div>
           <Divider />

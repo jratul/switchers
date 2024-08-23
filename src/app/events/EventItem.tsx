@@ -9,7 +9,6 @@ import { useSession } from "next-auth/react";
 import BaseDialog from "@/components/BaseDialog";
 import useCartCountStore from "@/hooks/useCartCountStore";
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
@@ -18,6 +17,7 @@ export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
 
   const [errorDialogOpen, setErrorDialogOpen] = useState<boolean>(false);
   const [doneDialogOpen, setDoneDialogOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const cartCount = useCartCountStore((state) => state.cartCount);
   const updateCartCount = useCartCountStore((state) => state.updateCartCount);
@@ -27,6 +27,8 @@ export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
       return;
     }
 
+    setLoading(true);
+
     fetch("/api/cart/add", {
       method: "POST",
       body: JSON.stringify({
@@ -35,16 +37,20 @@ export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
         image: `${eventInfo.image}`,
         userEmail: session?.user?.email as string,
       }),
-    }).then((res) => {
-      if (res.status === 400 || res.status === 401) {
-        router.push("/login");
-      } else if (res.status === 409) {
-        setErrorDialogOpen(true);
-      } else {
-        setDoneDialogOpen(true);
-        updateCartCount(cartCount + 1);
-      }
-    });
+    })
+      .then((res) => {
+        if (res.status === 400 || res.status === 401) {
+          router.push("/login");
+        } else if (res.status === 409) {
+          setErrorDialogOpen(true);
+        } else {
+          setDoneDialogOpen(true);
+          updateCartCount(cartCount + 1);
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -83,14 +89,13 @@ export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
             &#65510; {eventInfo.totalPrice.toLocaleString()}
           </div>
           <div className="mb-3">{eventInfo.content}</div>
-          <Link
+          <button
             className="px-3 py-2 text-white text-center bg-red-500 hover:bg-red-400 rounded"
-            href="#"
             onClick={handleAddCart}
-            scroll={false}
+            disabled={loading}
           >
-            장바구니에 넣기
-          </Link>
+            {loading ? <Spinner size={26} /> : <span>장바구니에 넣기</span>}
+          </button>
         </div>
       </div>
       <div className="text-lg text-red-400 font-semibold">상품 구성</div>
