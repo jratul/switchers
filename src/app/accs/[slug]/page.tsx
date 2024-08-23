@@ -7,13 +7,12 @@ import { useEffect, useState } from "react";
 import Loading from "@/app/loading";
 import { ProductInfo } from "@/constants/types";
 import { useSession } from "next-auth/react";
-import { authenticated } from "@/constants/data";
 import BaseDialog from "@/components/BaseDialog";
 import useCartCountStore from "@/hooks/useCartCountStore";
 
 export default function AccDetail({ params }: { params: { slug: string } }) {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   const [accInfo, setAccInfo] = useState<ProductInfo>();
   const [errorDialogOpen, setErrorDialogOpen] = useState<boolean>(false);

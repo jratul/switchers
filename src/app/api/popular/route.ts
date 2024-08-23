@@ -28,7 +28,7 @@ export async function GET() {
         },
       },
     ])
-    .sort({ score: 1 })
+    .sort({ score: -1 })
     .limit(5)
     .toArray();
 

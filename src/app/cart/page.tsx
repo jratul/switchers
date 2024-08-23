@@ -2,10 +2,9 @@
 
 import { CartInfo } from "@/constants/types";
 import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { authenticated } from "@/constants/data";
 import Loading from "../loading";
 import CartItem from "./CartItem";
 import useCartCountStore from "@/hooks/useCartCountStore";
