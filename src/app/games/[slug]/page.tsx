@@ -1,7 +1,7 @@
 "use client";
 
 import { GameInfo } from "@/constants/types";
-import { notFound, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { format } from "date-fns";
@@ -58,13 +58,13 @@ export default function GameDetail({ params }: { params: { slug: string } }) {
 
   useEffect(() => {
     if (!params.slug) {
-      notFound();
+      router.push("/404");
     }
 
     fetch(`/api/games/${params.slug}`)
       .then((res) => {
         if (!res.ok) {
-          notFound();
+          router.push("/404");
         }
         return res.json();
       })
@@ -72,7 +72,7 @@ export default function GameDetail({ params }: { params: { slug: string } }) {
         setGameInfo(gameInfo);
       })
       .catch(() => {
-        notFound();
+        router.push("/404");
       });
   }, [params.slug]);
 
