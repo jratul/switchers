@@ -31,7 +31,7 @@ export interface ProductInfo extends WithId<Document> {
 }
 
 export interface ReviewInfo extends WithId<Document> {
-  userName: string;
+  userEmail: string;
   score: number;
   date: Date;
   content: string;
@@ -57,4 +57,10 @@ export interface CartInfo extends WithId<Document> {
   price: number;
   count: number;
   image: string;
+}
+
+export interface ReviewStat {
+  total: number;
+  average: number;
+  groupList: { score: number; count: number }[];
 }

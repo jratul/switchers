@@ -13,13 +13,9 @@ import useCartCountStore from "@/hooks/useCartCountStore";
 export default function Cart() {
   const router = useRouter();
 
-  const cartCount = useCartCountStore((state) => state.cartCount);
-  const updateCartCount = useCartCountStore((state) => state.updateCartCount);
-
   const { data: session, status } = useSession();
-  if (!session || status !== authenticated || !session?.user?.email) {
-    redirect("/login");
-  }
+
+  const updateCartCount = useCartCountStore((state) => state.updateCartCount);
 
   const [cartList, setCartList] = useState<CartInfo[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
@@ -27,7 +23,7 @@ export default function Cart() {
 
   const getCartList = () => {
     if (!session?.user?.email) {
-      redirect("/login");
+      return;
     }
 
     setLoading(true);
@@ -48,7 +44,7 @@ export default function Cart() {
         updateCartCount(cartList.length);
       })
       .catch(() => {
-        redirect("/login");
+        router.push("/login");
       })
       .finally(() => {
         setLoading(false);
@@ -66,8 +62,16 @@ export default function Cart() {
   }, [cartList]);
 
   useEffect(() => {
+    if (status === "loading") {
+      return;
+    }
+
+    if (!session || status !== "authenticated" || !session.user?.email) {
+      router.push("/login");
+    }
+
     getCartList();
-  }, []);
+  }, [session, status, router]);
 
   return (
     <div className="mx-auto max-w-6xl p-5">
@@ -87,7 +91,11 @@ export default function Cart() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           <div className="col-span-1">
             {cartList.map((cartInfo) => (
-              <CartItem cartInfo={cartInfo} refresh={getCartList} />
+              <CartItem
+                cartInfo={cartInfo}
+                refresh={getCartList}
+                key={cartInfo._id.toString()}
+              />
             ))}
           </div>
           <div className="col-span-1">

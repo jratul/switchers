@@ -40,8 +40,6 @@ export async function DELETE(req: Request) {
 
   const db = (await connectDB).db("switchers");
 
-  console.log("cartId:", cartId);
-
   try {
     const collection = db.collection("cart");
 
