@@ -1,12 +1,11 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Divider from "@/components/Divider";
 import MainProductListItem from "@/components/MainProductListItem";
 import { GameInfo } from "@/constants/types";
 import Carousel from "./Carousel";
-import Skeleton from "@/components/Skeleton";
 import Loading from "./loading";
 
 export default function Home() {
