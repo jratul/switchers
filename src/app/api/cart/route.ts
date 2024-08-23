@@ -35,7 +35,7 @@ export async function DELETE(req: Request) {
 
   const cartId = body.cartId;
   if (!cartId) {
-    return Response.json({ status: 404 });
+    return Response.json("not found", { status: 404 });
   }
 
   const db = (await connectDB).db("switchers");
@@ -48,7 +48,7 @@ export async function DELETE(req: Request) {
     });
 
     if (!cartItem || session?.user?.email !== cartItem.userEmail) {
-      return Response.json({ status: 401 });
+      return Response.json("unauthorized", { status: 401 });
     }
 
     const result = await collection.deleteOne({
@@ -57,6 +57,6 @@ export async function DELETE(req: Request) {
 
     return Response.json({ status: 200 });
   } catch (error) {
-    return Response.json({ status: 500 });
+    return Response.json("server error", { status: 500 });
   }
 }

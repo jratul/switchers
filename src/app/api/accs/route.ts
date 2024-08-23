@@ -9,6 +9,6 @@ export async function GET() {
     const accList = await collection.find().toArray();
     return Response.json(accList, { status: 200 });
   } catch (error) {
-    return Response.json({ status: 404 });
+    return Response.json("not found", { status: 404 });
   }
 }
