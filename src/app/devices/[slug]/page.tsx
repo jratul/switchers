@@ -1,6 +1,6 @@
 "use client";
 
-import { notFound, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import Loading from "@/app/loading";
@@ -55,13 +55,13 @@ export default function DeviceDetail({ params }: { params: { slug: string } }) {
 
   useEffect(() => {
     if (!params.slug) {
-      notFound();
+      router.push("/404");
     }
 
     fetch(`/api/devices/${params.slug}`)
       .then((res) => {
         if (!res.ok) {
-          notFound();
+          router.push("/404");
         }
         return res.json();
       })
@@ -69,7 +69,7 @@ export default function DeviceDetail({ params }: { params: { slug: string } }) {
         setDeviceInfo(deviceInfo);
       })
       .catch(() => {
-        notFound();
+        router.push("/404");
       });
   }, [params.slug]);
 
