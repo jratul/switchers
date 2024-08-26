@@ -116,7 +116,7 @@ export default function Login() {
         buttonText="로그인"
         handleYes={handleLogin}
       />
-      <div className="w-3xl mx-auto flex items-center gap-2">
+      <div className="w-3xl mx-auto flex flex-col lg:flex-row items-center gap-2">
         <div className="w-80">
           <img
             src="/images/animal_crossing.webp"
