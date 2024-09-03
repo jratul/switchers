@@ -107,7 +107,7 @@ export default function Login() {
     }
   };
   return (
-    <div className="w-6xl mx-auto h-full flex justify-center items-center">
+    <div className="w-lg lg:w-6xl mx-auto h-full flex justify-center items-center">
       <BaseDialog
         open={dialogOpen}
         setOpen={setDialogOpen}
