@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { KeyboardEvent, useRef, useState } from "react";
+import { FormEvent, KeyboardEvent, useRef, useState } from "react";
 
 export default function Login() {
   const { status } = useSession();
@@ -124,7 +124,12 @@ export default function Login() {
             className="h-full w-full object-cover object-center rounded"
           />
         </div>
-        <form className="w-60 grid gap-2">
+        <form
+          className="w-60 grid gap-2"
+          onSubmit={(event: FormEvent<HTMLFormElement>) => {
+            event.preventDefault();
+          }}
+        >
           <input
             type="text"
             placeholder="이메일"
