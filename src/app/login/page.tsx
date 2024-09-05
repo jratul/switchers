@@ -124,7 +124,12 @@ export default function Login() {
             className="h-full w-full object-cover object-center rounded"
           />
         </div>
-        <form className="w-60 grid gap-2">
+        <form
+          className="w-60 grid gap-2"
+          onSubmit={(event) => {
+            event.preventDefault();
+          }}
+        >
           <input
             type="text"
             placeholder="이메일"
