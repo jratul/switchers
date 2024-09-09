@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
 
 function Zelda() {
   return (
@@ -87,18 +88,18 @@ export default function Carousel() {
                   {item.title}
                 </h1>
                 {item.content}
-                <a
+                <Link
                   href={item.href}
                   className="mt-8 rounded-md bg-red-500 px-8 py-3 text-base font-medium text-gray-200 hover:bg-red-400"
                 >
                   보러가기
-                </a>
+                </Link>
               </div>
             </div>
             <img
               src={item.image}
               alt={item.title}
-              className="object-cover w-screen"
+              className="object-cover h-full md:w-screen"
             />
           </div>
         ))}
