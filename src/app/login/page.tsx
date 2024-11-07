@@ -7,7 +7,7 @@ import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { KeyboardEvent, useRef, useState } from "react";
+import { FormEvent, KeyboardEvent, useRef, useState } from "react";
 
 export default function Login() {
   const { status } = useSession();
@@ -129,7 +129,7 @@ export default function Login() {
         </div>
         <form
           className="w-60 grid gap-2"
-          onSubmit={(event) => {
+          onSubmit={(event: FormEvent<HTMLFormElement>) => {
             event.preventDefault();
           }}
         >
