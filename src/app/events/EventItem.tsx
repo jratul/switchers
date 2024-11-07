@@ -1,15 +1,17 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { motion } from "framer-motion";
 import Divider from "@/components/Divider";
 import { EventInfo } from "@/constants/types";
 import GameItem from "./GameItem";
 import ProductItem from "./ProductItem";
 import Spinner from "@/components/Spinner";
-import { useSession } from "next-auth/react";
 import BaseDialog from "@/components/BaseDialog";
 import useCartCountStore from "@/hooks/useCartCountStore";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
   const router = useRouter();
@@ -75,7 +77,28 @@ export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
         <div className="col-span-1">
           <div className="h-48 overflow-hidden">
             {eventInfo.image ? (
-              <img src={eventInfo.image} alt={eventInfo.title} />
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  translateY: -10,
+                }}
+                animate={{
+                  opacity: 1,
+                  translateY: 0,
+                }}
+                transition={{
+                  duration: 0.5,
+                  ease: "easeInOut",
+                }}
+              >
+                <Image
+                  src={eventInfo.image}
+                  alt={eventInfo.title}
+                  width={500}
+                  height={500}
+                  priority
+                />
+              </motion.div>
             ) : (
               <Spinner size={32} />
             )}
@@ -101,13 +124,61 @@ export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
       <div className="text-lg text-red-400 font-semibold">상품 구성</div>
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
         {eventInfo.games.map((gameId) => (
-          <GameItem key={gameId} gameId={gameId} />
+          <motion.div
+            initial={{
+              opacity: 0,
+              translateY: -10,
+            }}
+            animate={{
+              opacity: 1,
+              translateY: 0,
+            }}
+            transition={{
+              duration: 0.5,
+              ease: "easeInOut",
+            }}
+            key={gameId}
+          >
+            <GameItem gameId={gameId} />
+          </motion.div>
         ))}
         {eventInfo.devices.map((deviceId) => (
-          <ProductItem key={deviceId} productId={deviceId} dirName="devices" />
+          <motion.div
+            initial={{
+              opacity: 0,
+              translateY: -10,
+            }}
+            animate={{
+              opacity: 1,
+              translateY: 0,
+            }}
+            transition={{
+              duration: 0.5,
+              ease: "easeInOut",
+            }}
+            key={deviceId}
+          >
+            <ProductItem productId={deviceId} dirName="devices" />
+          </motion.div>
         ))}
         {eventInfo.accs.map((accId) => (
-          <ProductItem key={accId} productId={accId} dirName="accs" />
+          <motion.div
+            initial={{
+              opacity: 0,
+              translateY: -10,
+            }}
+            animate={{
+              opacity: 1,
+              translateY: 0,
+            }}
+            transition={{
+              duration: 0.5,
+              ease: "easeInOut",
+            }}
+            key={accId}
+          >
+            <ProductItem productId={accId} dirName="accs" />
+          </motion.div>
         ))}
       </div>
       <Divider />

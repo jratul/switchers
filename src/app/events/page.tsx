@@ -1,4 +1,3 @@
-import { ObjectId } from "mongodb";
 import EventItem from "./EventItem";
 
 const data = [

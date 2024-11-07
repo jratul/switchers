@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Error({
   error,
@@ -17,9 +18,11 @@ export default function Error({
   return (
     <div className="flex mx-auto w-6xl h-full justify-center items-center flex-col tracking-tighter">
       <div className="w-64 h-64">
-        <img
+        <Image
           src="/images/ymw.webp"
           alt="luxio"
+          width={500}
+          height={500}
           className="h-full w-full object-cover object-center"
         />
       </div>

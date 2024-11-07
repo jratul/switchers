@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import Loading from "@/app/loading";
@@ -102,13 +103,17 @@ export default function AccDetail({ params }: { params: { slug: string } }) {
       ) : (
         <>
           <span className="align-middle text-4xl text-red-500 font-bold">
-            {accInfo?.name}
+            {accInfo.name}
           </span>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
             <div className="col-span-1">
               <div>
-                <img
-                  src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/accs/${accInfo?.image}`}
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/accs/${accInfo.image}`}
+                  alt={accInfo.name}
+                  width={500}
+                  height={500}
+                  priority
                 />
               </div>
             </div>

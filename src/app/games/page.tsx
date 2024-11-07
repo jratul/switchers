@@ -9,6 +9,7 @@ import {
 } from "@headlessui/react";
 
 import { MinusIcon, PlusIcon } from "@heroicons/react/20/solid";
+import { motion } from "framer-motion";
 
 import GameProductListItem from "@/components/GameProductListItem";
 import { filterData } from "@/constants/data";
@@ -188,7 +189,23 @@ export default function GameList() {
           {gameList.length > 0 ? (
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
               {gameList.map((gameInfo) => (
-                <GameProductListItem gameInfo={gameInfo} key={gameInfo.name} />
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    translateY: -10,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    translateY: 0,
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    ease: "easeInOut",
+                  }}
+                  key={gameInfo.name}
+                >
+                  <GameProductListItem gameInfo={gameInfo} />
+                </motion.div>
               ))}
             </div>
           ) : (

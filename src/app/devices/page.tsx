@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import OtherProductListItem from "@/components/OtherProductListItem";
 import { ProductInfo } from "@/constants/types";
 import Loading from "../loading";
@@ -42,11 +43,26 @@ export default function DeviceList() {
           {deviceList.length > 0 ? (
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
               {deviceList.map((deviceInfo) => (
-                <OtherProductListItem
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    translateY: -10,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    translateY: 0,
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    ease: "easeInOut",
+                  }}
                   key={deviceInfo.name}
-                  productInfo={deviceInfo}
-                  dirName="devices"
-                />
+                >
+                  <OtherProductListItem
+                    productInfo={deviceInfo}
+                    dirName="devices"
+                  />
+                </motion.div>
               ))}
             </div>
           ) : (
