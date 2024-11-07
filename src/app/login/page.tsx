@@ -4,6 +4,7 @@ import BaseDialog from "@/components/BaseDialog";
 import Spinner from "@/components/Spinner";
 import clsx from "clsx";
 import { signIn, useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { FormEvent, KeyboardEvent, useRef, useState } from "react";
@@ -118,9 +119,11 @@ export default function Login() {
       />
       <div className="w-3xl mx-auto flex flex-col lg:flex-row items-center gap-2">
         <div className="w-80">
-          <img
+          <Image
             src="/images/animal_crossing.webp"
             alt="animal crossing"
+            width={500}
+            height={500}
             className="h-full w-full object-cover object-center rounded"
           />
         </div>

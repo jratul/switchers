@@ -1,4 +1,5 @@
 import { GameInfo } from "@/constants/types";
+import Image from "next/image";
 
 export default function MainProductListItem({
   gameInfo,
@@ -12,9 +13,11 @@ export default function MainProductListItem({
       className="relative h-72 w-48 flex flex-col overflow-hidden rounded-lg p-6 hover:opacity-75"
     >
       <span aria-hidden="true" className="absolute inset-0">
-        <img
-          alt=""
+        <Image
           src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${gameInfo.image}`}
+          alt={gameInfo.name}
+          width={500}
+          height={500}
           className="h-full w-full object-cover object-center"
         />
       </span>

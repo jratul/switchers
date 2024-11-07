@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { GameInfo } from "@/constants/types";
 import Spinner from "@/components/Spinner";
+import Image from "next/image";
 
 export default function GameItem({ gameId }: { gameId: string }) {
   const [gameInfo, setGameInfo] = useState<GameInfo>();
@@ -23,9 +24,11 @@ export default function GameItem({ gameId }: { gameId: string }) {
       {gameInfo?.image ? (
         <>
           <span aria-hidden="true" className="absolute inset-0">
-            <img
+            <Image
               alt={gameInfo?.name}
               src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${gameInfo?.image}`}
+              width={500}
+              height={500}
               className="h-full w-full object-cover object-center"
             />
           </span>

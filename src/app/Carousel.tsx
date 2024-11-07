@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
+import Image from "next/image";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 
 function Zelda() {
   return (
@@ -96,10 +97,13 @@ export default function Carousel() {
                 </Link>
               </div>
             </div>
-            <img
+            <Image
               src={item.image}
               alt={item.title}
+              width={1920}
+              height={1080}
               className="object-cover h-full md:w-screen"
+              priority
             />
           </div>
         ))}

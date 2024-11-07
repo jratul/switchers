@@ -1,14 +1,14 @@
 "use client";
 
-import { GameInfo } from "@/constants/types";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { useSession } from "next-auth/react";
 import { format } from "date-fns";
+import { GameInfo } from "@/constants/types";
 import Loading from "@/app/loading";
 import Divider from "@/components/Divider";
 import Review from "./Review";
-import { useSession } from "next-auth/react";
 import BaseDialog from "@/components/BaseDialog";
 import useCartCountStore from "@/hooks/useCartCountStore";
 import Spinner from "@/components/Spinner";
@@ -110,8 +110,11 @@ export default function GameDetail({ params }: { params: { slug: string } }) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
             <div className="col-span-1">
               <div>
-                <img
-                  src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${gameInfo?.image}`}
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${gameInfo.image}`}
+                  alt={gameInfo.name}
+                  width={500}
+                  height={500}
                 />
               </div>
             </div>

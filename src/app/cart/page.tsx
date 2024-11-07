@@ -1,9 +1,10 @@
 "use client";
 
-import { CartInfo } from "@/constants/types";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { CartInfo } from "@/constants/types";
 import Loading from "../loading";
 import CartItem from "./CartItem";
 import useCartCountStore from "@/hooks/useCartCountStore";
@@ -110,31 +111,11 @@ export default function Cart() {
                         className="items-center h-full mr-2"
                       />
                       <div className="w-20 h-full items-center">
-                        <img src="/images/pay/naver-pay.svg" alt="naver pay" />
-                      </div>
-                    </label>
-                    <label className="flex items-center mb-5">
-                      <input
-                        type="radio"
-                        name="pay"
-                        defaultChecked={false}
-                        className="items-center h-full mr-2"
-                      />
-                      <div className="w-20 h-full items-center">
-                        <img src="/images/pay/kakao-pay.svg" alt="naver pay" />
-                      </div>
-                    </label>
-                    <label className="flex items-center mb-5">
-                      <input
-                        type="radio"
-                        name="pay"
-                        defaultChecked={false}
-                        className="items-center h-full mr-2"
-                      />
-                      <div className="w-20 h-full items-center">
-                        <img
-                          src="/images/pay/samsung-pay.png"
-                          alt="samsung pay"
+                        <Image
+                          src="/images/pay/naver-pay.svg"
+                          alt="naver pay"
+                          width={200}
+                          height={100}
                         />
                       </div>
                     </label>
@@ -146,7 +127,44 @@ export default function Cart() {
                         className="items-center h-full mr-2"
                       />
                       <div className="w-20 h-full items-center">
-                        <img src="/images/pay/apple-pay.svg" alt="apple pay" />
+                        <Image
+                          src="/images/pay/kakao-pay.svg"
+                          alt="naver pay"
+                          width={200}
+                          height={100}
+                        />
+                      </div>
+                    </label>
+                    <label className="flex items-center mb-5">
+                      <input
+                        type="radio"
+                        name="pay"
+                        defaultChecked={false}
+                        className="items-center h-full mr-2"
+                      />
+                      <div className="w-20 h-full items-center">
+                        <Image
+                          src="/images/pay/samsung-pay.png"
+                          alt="samsung pay"
+                          width={200}
+                          height={100}
+                        />
+                      </div>
+                    </label>
+                    <label className="flex items-center mb-5">
+                      <input
+                        type="radio"
+                        name="pay"
+                        defaultChecked={false}
+                        className="items-center h-full mr-2"
+                      />
+                      <div className="w-20 h-full items-center">
+                        <Image
+                          src="/images/pay/apple-pay.svg"
+                          alt="apple pay"
+                          width={200}
+                          height={100}
+                        />
                       </div>
                     </label>
                   </div>

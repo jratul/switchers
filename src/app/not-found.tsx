@@ -1,12 +1,15 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function NotFound() {
   return (
     <div className="flex mx-auto w-6xl h-full justify-center items-center flex-col tracking-tighter">
       <div className="w-64 h-64">
-        <img
+        <Image
           src="/images/luxio.webp"
           alt="luxio"
+          width={500}
+          height={500}
           className="h-full w-full object-cover object-center"
         />
       </div>

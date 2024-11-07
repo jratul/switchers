@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Divider from "@/components/Divider";
 import { CartInfo } from "@/constants/types";
 import { TrashIcon } from "@heroicons/react/20/solid";
@@ -27,8 +28,11 @@ export default function CartItem({ cartInfo, refresh }: Props) {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
         <div className="col-span-1">
           <div className="overflow-hidden">
-            <img
-              src={`${cartInfo.image}`}
+            <Image
+              src={cartInfo.image}
+              alt={cartInfo.name}
+              width={500}
+              height={500}
               className="w-32 h-32 object-center object-cover"
             />
           </div>
