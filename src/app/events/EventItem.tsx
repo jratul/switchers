@@ -113,7 +113,7 @@ export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
           </div>
           <div className="mb-3">{eventInfo.content}</div>
           <button
-            className="px-3 py-2 text-white text-center bg-red-500 hover:bg-red-400 rounded"
+            className="w-full py-2 text-white text-center bg-red-500 hover:bg-red-400 rounded"
             onClick={handleAddCart}
             disabled={loading}
           >
