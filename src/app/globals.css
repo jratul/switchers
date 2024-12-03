@@ -2,6 +2,11 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+html {
+  width: calc(100vw - 8px);
+  overflow-x: hidden;
+}
+
 img {
   -webkit-user-drag: none;
   -khtml-user-drag: none;
