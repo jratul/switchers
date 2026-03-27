@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { GameInfo } from "@/constants/types";
 import Spinner from "@/components/Spinner";
-import Image from "next/image";
 
 export default function GameItem({ gameId }: { gameId: string }) {
   const [gameInfo, setGameInfo] = useState<GameInfo>();
@@ -25,11 +25,10 @@ export default function GameItem({ gameId }: { gameId: string }) {
         <>
           <span aria-hidden="true" className="absolute inset-0">
             <Image
-              alt={gameInfo?.name}
+              alt={gameInfo?.name ?? ""}
               src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${gameInfo?.image}`}
-              width={500}
-              height={500}
-              className="h-full w-full object-cover object-center"
+              fill
+              className="object-cover object-center"
             />
           </span>
           <span

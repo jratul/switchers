@@ -49,7 +49,7 @@ export default function Nav() {
       .then((cartList) => {
         updateCartCount(cartList.length);
       });
-  }, [session?.user?.email]);
+  }, [session?.user?.email, updateCartCount]);
 
   return (
     <div>

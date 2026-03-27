@@ -8,9 +8,9 @@ export default function NotFound() {
         <Image
           src="/images/luxio.webp"
           alt="luxio"
-          width={500}
-          height={500}
-          className="h-full w-full object-cover object-center"
+          width={256}
+          height={256}
+          className="object-cover object-center"
         />
       </div>
       <div className="flex items-center">

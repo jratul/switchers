@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { CartInfo } from "@/constants/types";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import Loading from "../loading";
 import CartItem from "./CartItem";
 import useCartCountStore from "@/hooks/useCartCountStore";
@@ -20,7 +20,7 @@ export default function Cart() {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const getCartList = () => {
+  const getCartList = useCallback(() => {
     if (!session?.user?.email) {
       return;
     }
@@ -48,7 +48,7 @@ export default function Cart() {
       .finally(() => {
         setLoading(false);
       });
-  };
+  }, [session?.user?.email, router, updateCartCount]);
 
   useEffect(() => {
     setTotalPrice(() => {
@@ -70,7 +70,7 @@ export default function Cart() {
     }
 
     getCartList();
-  }, [session, status, router]);
+  }, [session, status, router, getCartList]);
 
   return (
     <div className="mx-auto max-w-6xl p-5">
@@ -111,12 +111,7 @@ export default function Cart() {
                         className="items-center h-full mr-2"
                       />
                       <div className="w-20 h-full items-center">
-                        <Image
-                          src="/images/pay/naver-pay.svg"
-                          alt="naver pay"
-                          width={200}
-                          height={100}
-                        />
+                        <Image src="/images/pay/naver-pay.svg" alt="naver pay" width={80} height={32} />
                       </div>
                     </label>
                     <label className="flex items-center mb-5">
@@ -127,12 +122,7 @@ export default function Cart() {
                         className="items-center h-full mr-2"
                       />
                       <div className="w-20 h-full items-center">
-                        <Image
-                          src="/images/pay/kakao-pay.svg"
-                          alt="naver pay"
-                          width={200}
-                          height={100}
-                        />
+                        <Image src="/images/pay/kakao-pay.svg" alt="kakao pay" width={80} height={32} />
                       </div>
                     </label>
                     <label className="flex items-center mb-5">
@@ -143,12 +133,7 @@ export default function Cart() {
                         className="items-center h-full mr-2"
                       />
                       <div className="w-20 h-full items-center">
-                        <Image
-                          src="/images/pay/samsung-pay.png"
-                          alt="samsung pay"
-                          width={200}
-                          height={100}
-                        />
+                        <Image src="/images/pay/samsung-pay.png" alt="samsung pay" width={80} height={32} />
                       </div>
                     </label>
                     <label className="flex items-center mb-5">
@@ -159,12 +144,7 @@ export default function Cart() {
                         className="items-center h-full mr-2"
                       />
                       <div className="w-20 h-full items-center">
-                        <Image
-                          src="/images/pay/apple-pay.svg"
-                          alt="apple pay"
-                          width={200}
-                          height={100}
-                        />
+                        <Image src="/images/pay/apple-pay.svg" alt="apple pay" width={80} height={32} />
                       </div>
                     </label>
                   </div>

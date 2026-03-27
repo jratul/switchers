@@ -31,9 +31,9 @@ export default function CartItem({ cartInfo, refresh }: Props) {
             <Image
               src={cartInfo.image}
               alt={cartInfo.name}
-              width={500}
-              height={500}
-              className="w-32 h-32 object-center object-cover"
+              width={128}
+              height={128}
+              className="object-center object-cover"
             />
           </div>
         </div>

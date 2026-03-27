@@ -1,5 +1,5 @@
-import { ProductInfo } from "@/constants/types";
 import Image from "next/image";
+import { ProductInfo } from "@/constants/types";
 
 interface Props {
   productInfo: ProductInfo;
@@ -13,14 +13,12 @@ export default function OtherProductListItem({ productInfo, dirName }: Props) {
       href={`${dirName}/${productInfo._id.toString()}`}
       className="mb-5"
     >
-      <div className="h-64 overflow-hidden rounded-lg">
+      <div className="h-64 overflow-hidden rounded-lg relative">
         <Image
-          src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${dirName}/${productInfo.image}`}
           alt={productInfo.name}
-          width={500}
-          height={500}
-          className="h-full w-full object-cover object-center transition duration-100 hover:scale-105 ease-in-out "
-          priority
+          src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${dirName}/${productInfo.image}`}
+          fill
+          className="object-cover object-center transition duration-100 hover:scale-105 ease-in-out"
         />
       </div>
       <div className="align-middle mt-2 text-xl font-bold text-red-500">

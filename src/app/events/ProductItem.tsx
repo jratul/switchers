@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ProductInfo } from "@/constants/types";
 import Image from "next/image";
+import { ProductInfo } from "@/constants/types";
 
 interface Props {
   productId: string;
@@ -29,10 +29,8 @@ export default function ProductItem({ productId, dirName }: Props) {
         <Image
           alt=""
           src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${dirName}/${productInfo?.image}`}
-          width={500}
-          height={500}
-          className="h-full w-full object-cover object-center"
-          priority
+          fill
+          className="object-cover object-center"
         />
       </span>
       <span

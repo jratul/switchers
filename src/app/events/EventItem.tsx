@@ -75,30 +75,9 @@ export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
           handleYes={() => {}}
         />
         <div className="col-span-1">
-          <div className="h-48 overflow-hidden">
+          <div className="h-48 overflow-hidden relative">
             {eventInfo.image ? (
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  translateY: -10,
-                }}
-                animate={{
-                  opacity: 1,
-                  translateY: 0,
-                }}
-                transition={{
-                  duration: 0.5,
-                  ease: "easeInOut",
-                }}
-              >
-                <Image
-                  src={eventInfo.image}
-                  alt={eventInfo.title}
-                  width={500}
-                  height={500}
-                  priority
-                />
-              </motion.div>
+              <Image src={eventInfo.image} alt={eventInfo.title} fill priority className="object-cover" />
             ) : (
               <Spinner size={32} />
             )}
@@ -125,18 +104,9 @@ export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
         {eventInfo.games.map((gameId) => (
           <motion.div
-            initial={{
-              opacity: 0,
-              translateY: -10,
-            }}
-            animate={{
-              opacity: 1,
-              translateY: 0,
-            }}
-            transition={{
-              duration: 0.5,
-              ease: "easeInOut",
-            }}
+            initial={{ opacity: 0, translateY: -10 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
             key={gameId}
           >
             <GameItem gameId={gameId} />
@@ -144,18 +114,9 @@ export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
         ))}
         {eventInfo.devices.map((deviceId) => (
           <motion.div
-            initial={{
-              opacity: 0,
-              translateY: -10,
-            }}
-            animate={{
-              opacity: 1,
-              translateY: 0,
-            }}
-            transition={{
-              duration: 0.5,
-              ease: "easeInOut",
-            }}
+            initial={{ opacity: 0, translateY: -10 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
             key={deviceId}
           >
             <ProductItem productId={deviceId} dirName="devices" />
@@ -163,18 +124,9 @@ export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
         ))}
         {eventInfo.accs.map((accId) => (
           <motion.div
-            initial={{
-              opacity: 0,
-              translateY: -10,
-            }}
-            animate={{
-              opacity: 1,
-              translateY: 0,
-            }}
-            transition={{
-              duration: 0.5,
-              ease: "easeInOut",
-            }}
+            initial={{ opacity: 0, translateY: -10 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
             key={accId}
           >
             <ProductItem productId={accId} dirName="accs" />

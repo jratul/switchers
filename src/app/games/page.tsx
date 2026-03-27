@@ -18,9 +18,6 @@ import { useSearchParams } from "next/navigation";
 import Loading from "../loading";
 
 export default function GameList() {
-  const controller = new AbortController();
-  const signal = controller.signal;
-
   const params = useSearchParams();
   const filterParam = params.get("filter");
 
@@ -104,6 +101,9 @@ export default function GameList() {
   }, [checkState]);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     fetch(`/api/games`, {
       method: "POST",
       body: JSON.stringify(conditionList),

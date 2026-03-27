@@ -1,8 +1,8 @@
 "use client"; // Error boundaries must be Client Components
 
 import { useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Error({
   error,
@@ -20,10 +20,10 @@ export default function Error({
       <div className="w-64 h-64">
         <Image
           src="/images/ymw.webp"
-          alt="luxio"
-          width={500}
-          height={500}
-          className="h-full w-full object-cover object-center"
+          alt="error"
+          width={256}
+          height={256}
+          className="object-cover object-center"
         />
       </div>
       <div className="flex items-center">

@@ -100,10 +100,9 @@ export default function Carousel() {
             <Image
               src={item.image}
               alt={item.title}
-              width={1920}
-              height={1080}
-              className="object-cover h-full md:w-screen"
+              fill
               priority
+              className="object-cover"
             />
           </div>
         ))}

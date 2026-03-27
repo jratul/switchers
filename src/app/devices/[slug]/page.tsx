@@ -72,7 +72,7 @@ export default function DeviceDetail({ params }: { params: { slug: string } }) {
       .catch(() => {
         router.push("/404");
       });
-  }, [params.slug]);
+  }, [params.slug, router]);
 
   return (
     <div className="mx-auto max-w-6xl p-5">
@@ -107,12 +107,13 @@ export default function DeviceDetail({ params }: { params: { slug: string } }) {
           </span>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
             <div className="col-span-1">
-              <div>
+              <div className="relative w-full aspect-square">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/devices/${deviceInfo.image}`}
                   alt={deviceInfo.name}
-                  width={500}
-                  height={500}
+                  fill
+                  priority
+                  className="object-contain"
                 />
               </div>
             </div>

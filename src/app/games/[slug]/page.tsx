@@ -74,7 +74,7 @@ export default function GameDetail({ params }: { params: { slug: string } }) {
       .catch(() => {
         router.push("/404");
       });
-  }, [params.slug]);
+  }, [params.slug, router]);
 
   return (
     <div className="mx-auto max-w-6xl p-5">
@@ -105,16 +105,17 @@ export default function GameDetail({ params }: { params: { slug: string } }) {
             handleYes={() => {}}
           />
           <span className="align-middle text-4xl text-red-500 font-bold">
-            {gameInfo?.name}
+            {gameInfo.name}
           </span>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
             <div className="col-span-1">
-              <div>
+              <div className="relative w-full aspect-square">
                 <Image
                   src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${gameInfo.image}`}
                   alt={gameInfo.name}
-                  width={500}
-                  height={500}
+                  fill
+                  priority
+                  className="object-contain"
                 />
               </div>
             </div>
