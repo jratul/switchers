@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**",
+        hostname: "jratul-s3-bucket1.s3.ap-northeast-2.amazonaws.com",
       },
     ],
   },
