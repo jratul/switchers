@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import OtherProductListItem from "@/components/OtherProductListItem";
 import { ProductInfo } from "@/constants/types";
+import BaseDialog from "@/components/BaseDialog";
 import Loading from "../loading";
 
 export default function AccList() {
   const [accList, setAccList] = useState<ProductInfo[]>([]);
+  const [errorDialogOpen, setErrorDialogOpen] = useState<boolean>(false);
 
   useEffect(() => {
     fetch(`/api/accs`, { method: "GET" })
@@ -21,12 +23,20 @@ export default function AccList() {
       .then((gameList) => {
         setAccList(gameList);
       })
-      .catch((error) => {
-        alert(`${error}`);
+      .catch(() => {
+        setErrorDialogOpen(true);
       });
   }, []);
   return (
     <div className="my-5 mx-auto max-w-6xl">
+      <BaseDialog
+        open={errorDialogOpen}
+        setOpen={setErrorDialogOpen}
+        title="오류 발생"
+        content={["액세서리 목록을 불러오지 못했습니다.", "잠시 후 다시 시도해주세요."]}
+        buttonText="확인"
+        handleYes={() => {}}
+      />
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-3">
         <div className="col-span-1 px-4">
           <p className="text-red-500 text-3xl font-bold mb-3">액세서리</p>
