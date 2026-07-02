@@ -75,10 +75,11 @@ export default function Carousel() {
   return (
     <div className="w-screen h-[50vh] relative overflow-hidden">
       <div
-        style={{ transform: `translateX(-${100 * idx}vw)` }}
-        className={`w-[${
-          100 * data.length
-        }vw] h-full flex transition-transform ease-out duration-500`}
+        style={{
+          width: `${100 * data.length}vw`,
+          transform: `translateX(-${100 * idx}vw)`,
+        }}
+        className="h-full flex transition-transform ease-out duration-500"
       >
         {data.map((item, idx) => (
           <div className="w-screen flex-shrink-0 relative" key={idx}>

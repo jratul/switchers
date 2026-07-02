@@ -1,20 +1,29 @@
 import { connectDB } from "@/util/database";
 import bcrypt from "bcrypt";
 
-const emailRegex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
+const emailRegex = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/i;
 
 export async function POST(req: Request) {
   const formData = await req.formData();
 
-  const email = (formData.get("email") as string).replace(/(\s*)/g, "");
-  const password = await bcrypt.hash(
-    (formData.get("password") as string).replace(/(\s*)/g, ""),
-    parseInt(process.env.BCRYPT_SALT ?? "10")
-  );
+  const rawEmail = formData.get("email");
+  const rawPassword = formData.get("password");
 
-  if (!email || !password || !emailRegex.test(email)) {
+  if (typeof rawEmail !== "string" || typeof rawPassword !== "string") {
     return new Response("Invalid data", { status: 400 });
   }
+
+  const email = rawEmail.replace(/(\s*)/g, "");
+  const plainPassword = rawPassword.replace(/(\s*)/g, "");
+
+  if (!email || !plainPassword || !emailRegex.test(email)) {
+    return new Response("Invalid data", { status: 400 });
+  }
+
+  const password = await bcrypt.hash(
+    plainPassword,
+    parseInt(process.env.BCRYPT_SALT ?? "10")
+  );
 
   const db = (await connectDB).db("switchers");
   const collection = db.collection("users_cred");

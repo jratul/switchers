@@ -5,7 +5,7 @@ interface State {
 }
 
 interface Action {
-  updateCartCount: (firstName: State["cartCount"]) => void;
+  updateCartCount: (cartCount: State["cartCount"]) => void;
 }
 
 const useCartCountStore = create<State & Action>((set) => ({

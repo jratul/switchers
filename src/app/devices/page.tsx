@@ -1,32 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import OtherProductListItem from "@/components/OtherProductListItem";
 import { ProductInfo } from "@/constants/types";
 import BaseDialog from "@/components/BaseDialog";
+import useProductList from "@/hooks/useProductList";
 import Loading from "../loading";
 
 export default function DeviceList() {
-  const [deviceList, setDeviceList] = useState<ProductInfo[]>([]);
-  const [errorDialogOpen, setErrorDialogOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    fetch(`/api/devices`, { method: "GET" })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error();
-        }
-
-        return res.json();
-      })
-      .then((gameList) => {
-        setDeviceList(gameList);
-      })
-      .catch(() => {
-        setErrorDialogOpen(true);
-      });
-  }, []);
+  const {
+    list: deviceList,
+    errorDialogOpen,
+    setErrorDialogOpen,
+  } = useProductList<ProductInfo>("/api/devices");
 
   return (
     <div className="my-5 mx-auto max-w-6xl">

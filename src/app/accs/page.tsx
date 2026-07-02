@@ -1,32 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import OtherProductListItem from "@/components/OtherProductListItem";
 import { ProductInfo } from "@/constants/types";
 import BaseDialog from "@/components/BaseDialog";
+import useProductList from "@/hooks/useProductList";
 import Loading from "../loading";
 
 export default function AccList() {
-  const [accList, setAccList] = useState<ProductInfo[]>([]);
-  const [errorDialogOpen, setErrorDialogOpen] = useState<boolean>(false);
+  const {
+    list: accList,
+    errorDialogOpen,
+    setErrorDialogOpen,
+  } = useProductList<ProductInfo>("/api/accs");
 
-  useEffect(() => {
-    fetch(`/api/accs`, { method: "GET" })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error();
-        }
-
-        return res.json();
-      })
-      .then((gameList) => {
-        setAccList(gameList);
-      })
-      .catch(() => {
-        setErrorDialogOpen(true);
-      });
-  }, []);
   return (
     <div className="my-5 mx-auto max-w-6xl">
       <BaseDialog

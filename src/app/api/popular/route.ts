@@ -7,32 +7,36 @@ export async function GET() {
 
   const collection = db.collection("games");
 
-  const result = await collection
-    .aggregate([
-      {
-        $lookup: {
-          from: "reviews",
-          localField: "_id",
-          foreignField: "gameId",
-          as: "reviews",
-        },
-      },
-      {
-        $addFields: {
-          score: {
-            $round: [{ $avg: "$reviews.score" }, 2],
+  try {
+    const result = await collection
+      .aggregate([
+        {
+          $lookup: {
+            from: "reviews",
+            localField: "_id",
+            foreignField: "gameId",
+            as: "reviews",
           },
         },
-      },
-      {
-        $project: {
-          reviews: 0,
+        {
+          $addFields: {
+            score: {
+              $round: [{ $avg: "$reviews.score" }, 2],
+            },
+          },
         },
-      },
-    ])
-    .sort({ score: -1 })
-    .limit(5)
-    .toArray();
+        {
+          $project: {
+            reviews: 0,
+          },
+        },
+      ])
+      .sort({ score: -1 })
+      .limit(5)
+      .toArray();
 
-  return Response.json(result, { status: 200 });
+    return Response.json(result, { status: 200 });
+  } catch (error) {
+    return Response.json([], { status: 500 });
+  }
 }

@@ -7,11 +7,15 @@ export async function GET() {
 
   const collection = db.collection("games");
 
-  const result = await collection
-    .find()
-    .sort({ release: -1 })
-    .limit(5)
-    .toArray();
+  try {
+    const result = await collection
+      .find()
+      .sort({ release: -1 })
+      .limit(5)
+      .toArray();
 
-  return Response.json(result, { status: 200 });
+    return Response.json(result, { status: 200 });
+  } catch (error) {
+    return Response.json([], { status: 500 });
+  }
 }

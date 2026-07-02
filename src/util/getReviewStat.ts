@@ -16,7 +16,10 @@ export default function getReviewStat(reviewList: ReviewInfo[]) {
   let sum = 0;
 
   reviewList.map((reviewInfo) => {
-    reviewStat.groupList[5 - reviewInfo.score].count += 1;
+    const group = reviewStat.groupList[5 - reviewInfo.score];
+    if (group) {
+      group.count += 1;
+    }
     sum += reviewInfo.score;
   });
 

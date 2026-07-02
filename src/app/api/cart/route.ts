@@ -3,22 +3,20 @@ import { connectDB } from "@/util/database";
 import { ObjectId } from "mongodb";
 import { authOptions } from "@/util/authOptions";
 
-export async function POST(req: Request) {
+export async function POST() {
   const session = await getServerSession(authOptions);
-  if (!session) {
+  if (!session?.user?.email) {
     return Response.json({ status: 401 });
   }
-
-  const body = await req.json();
-
-  const userEmail = body.userEmail;
 
   const db = (await connectDB).db("switchers");
 
   try {
     const collection = db.collection("cart");
 
-    const cartList = await collection.find({ userEmail: userEmail }).toArray();
+    const cartList = await collection
+      .find({ userEmail: session.user.email })
+      .toArray();
     return Response.json(cartList, { status: 200 });
   } catch (error) {
     return Response.json({ status: 401 });

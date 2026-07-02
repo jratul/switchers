@@ -3,7 +3,7 @@ import { connectDB } from "@/util/database";
 import bcrypt from "bcrypt";
 import { getServerSession } from "next-auth";
 
-const emailRegex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
+const emailRegex = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/i;
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);

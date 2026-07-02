@@ -29,7 +29,6 @@ export default function Cart() {
 
     fetch(`/api/cart`, {
       method: "POST",
-      body: JSON.stringify({ userEmail: session?.user?.email }),
     })
       .then((res) => {
         if (!res.ok) {

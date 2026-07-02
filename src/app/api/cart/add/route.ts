@@ -19,7 +19,9 @@ export async function POST(req: Request) {
   try {
     const collection = db.collection("cart");
 
-    const existItem = await collection.find({ name: body.name }).toArray();
+    const existItem = await collection
+      .find({ name: body.name, userEmail: session.user.email })
+      .toArray();
 
     if (existItem.length > 0) {
       return Response.json("exist item", { status: 409 });

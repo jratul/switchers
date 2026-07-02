@@ -12,6 +12,7 @@ import { MinusIcon, PlusIcon } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
 
 import GameProductListItem from "@/components/GameProductListItem";
+import BaseDialog from "@/components/BaseDialog";
 import { filterData } from "@/constants/data";
 import { GameInfo } from "@/constants/types";
 import { useSearchParams } from "next/navigation";
@@ -23,6 +24,7 @@ export default function GameList() {
 
   const [gameList, setGameList] = useState<GameInfo[]>([]);
   const [conditionList, setConditionList] = useState<any[]>([{}]);
+  const [errorDialogOpen, setErrorDialogOpen] = useState<boolean>(false);
 
   const [checkState, setCheckState] = useState<{ [key: string]: boolean }>({});
 
@@ -121,7 +123,11 @@ export default function GameList() {
           setGameList(gameList);
         }
       })
-      .catch(() => {});
+      .catch(() => {
+        if (!signal.aborted) {
+          setErrorDialogOpen(true);
+        }
+      });
 
     return () => {
       controller.abort();
@@ -130,6 +136,14 @@ export default function GameList() {
 
   return (
     <div className="my-5 mx-auto max-w-6xl p-5">
+      <BaseDialog
+        open={errorDialogOpen}
+        setOpen={setErrorDialogOpen}
+        title="오류 발생"
+        content={["게임 목록을 불러오지 못했습니다.", "잠시 후 다시 시도해주세요."]}
+        buttonText="확인"
+        handleYes={() => {}}
+      />
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-3">
         <div className="col-span-1">
           <p className="text-red-500 text-3xl font-bold mb-3">게임</p>
