@@ -18,6 +18,7 @@ export default function GameProductListItem({ gameInfo }: Props) {
           alt={gameInfo.name}
           src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${gameInfo.image}`}
           fill
+          sizes="(min-width: 1024px) 216px, 50vw"
           className="object-cover object-center transition duration-100 hover:scale-105 ease-in-out"
         />
       </div>

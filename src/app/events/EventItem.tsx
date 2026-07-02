@@ -77,7 +77,14 @@ export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
         <div className="col-span-1">
           <div className="h-48 overflow-hidden relative">
             {eventInfo.image ? (
-              <Image src={eventInfo.image} alt={eventInfo.title} fill priority className="object-cover" />
+              <Image
+                src={eventInfo.image}
+                alt={eventInfo.title}
+                fill
+                priority
+                sizes="(min-width: 1024px) 576px, 100vw"
+                className="object-cover"
+              />
             ) : (
               <Spinner size={32} />
             )}

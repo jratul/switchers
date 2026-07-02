@@ -88,6 +88,7 @@ export default function Carousel() {
               alt={item.title}
               fill
               priority
+              sizes="100vw"
               className="object-contain"
             />
             <div className="absolute inset-0 bg-gray-900 opacity-70" />

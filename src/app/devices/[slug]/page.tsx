@@ -113,6 +113,7 @@ export default function DeviceDetail({ params }: { params: { slug: string } }) {
                   alt={deviceInfo.name}
                   fill
                   priority
+                  sizes="(min-width: 1024px) 576px, 100vw"
                   className="object-contain"
                 />
               </div>

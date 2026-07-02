@@ -30,6 +30,7 @@ export default function ProductItem({ productId, dirName }: Props) {
           alt=""
           src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${dirName}/${productInfo?.image}`}
           fill
+          sizes="192px"
           className="object-cover object-center"
         />
       </span>

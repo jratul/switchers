@@ -28,6 +28,7 @@ export default function GameItem({ gameId }: { gameId: string }) {
               alt={gameInfo?.name ?? ""}
               src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${gameInfo?.image}`}
               fill
+              sizes="192px"
               className="object-cover object-center"
             />
           </span>

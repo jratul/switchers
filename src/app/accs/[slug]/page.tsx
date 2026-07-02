@@ -113,6 +113,7 @@ export default function AccDetail({ params }: { params: { slug: string } }) {
                   alt={accInfo.name}
                   fill
                   priority
+                  sizes="(min-width: 1024px) 576px, 100vw"
                   className="object-contain"
                 />
               </div>

@@ -7,6 +7,7 @@ const nextConfig = {
         hostname: "jratul-s3-bucket1.s3.ap-northeast-2.amazonaws.com",
       },
     ],
+    minimumCacheTTL: 31536000,
   },
 };
 

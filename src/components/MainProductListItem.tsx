@@ -17,6 +17,7 @@ export default function MainProductListItem({
           alt=""
           src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${gameInfo.image}`}
           fill
+          sizes="192px"
           className="object-cover object-center"
         />
       </span>
