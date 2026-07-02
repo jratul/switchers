@@ -13,6 +13,25 @@ export async function getProductList(dirName: ProductDirName) {
   return list as unknown as ProductInfo[];
 }
 
+export async function getRelatedProducts(
+  dirName: ProductDirName,
+  type: string,
+  excludeId: string
+) {
+  const db = (await connectDB).db("switchers");
+  const collection = db.collection(dirName);
+
+  const result = await collection
+    .find({
+      type,
+      _id: { $ne: ObjectId.createFromHexString(excludeId) },
+    })
+    .limit(4)
+    .toArray();
+
+  return result as unknown as ProductInfo[];
+}
+
 export async function getProductBySlug(dirName: ProductDirName, slug: string) {
   const db = (await connectDB).db("switchers");
   const collection = db.collection(dirName);

@@ -88,6 +88,21 @@ export async function getPopularGames() {
   return result as unknown as GameInfo[];
 }
 
+export async function getRelatedGames(type: string, excludeId: string) {
+  const db = (await connectDB).db("switchers");
+  const collection = db.collection("games");
+
+  const result = await collection
+    .find({
+      type,
+      _id: { $ne: ObjectId.createFromHexString(excludeId) },
+    })
+    .limit(4)
+    .toArray();
+
+  return result as unknown as GameInfo[];
+}
+
 export async function getRecentGames() {
   const db = (await connectDB).db("switchers");
   const collection = db.collection("games");

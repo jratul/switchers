@@ -5,10 +5,12 @@ import { usePathname } from "next/navigation";
 import { PopoverGroup } from "@headlessui/react";
 import NavMainItem from "@/components/NavMainItem";
 import { signOut, useSession } from "next-auth/react";
-import { ShoppingCartIcon } from "@heroicons/react/20/solid";
+import { ShoppingCartIcon, HeartIcon } from "@heroicons/react/20/solid";
 import { authenticated } from "@/constants/data";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect } from "react";
 import useCartCountStore from "@/hooks/useCartCountStore";
+import useWishlistCountStore from "@/hooks/useWishlistCountStore";
+import SearchBox from "./SearchBox";
 
 const subCategoryData = [
   [
@@ -31,6 +33,10 @@ export default function Nav() {
   const { data: session, status } = useSession();
   const cartCount = useCartCountStore((state) => state.cartCount);
   const updateCartCount = useCartCountStore((state) => state.updateCartCount);
+  const wishlistCount = useWishlistCountStore((state) => state.wishlistCount);
+  const updateWishlistCount = useWishlistCountStore(
+    (state) => state.updateWishlistCount
+  );
 
   useEffect(() => {
     if (!session?.user?.email) {
@@ -49,7 +55,19 @@ export default function Nav() {
       .then((cartList) => {
         updateCartCount(cartList.length);
       });
-  }, [session?.user?.email, updateCartCount]);
+
+    fetch("/api/wishlist/count")
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then((data) => {
+        if (data) {
+          updateWishlistCount(data.count);
+        }
+      });
+  }, [session?.user?.email, updateCartCount, updateWishlistCount]);
 
   return (
     <div>
@@ -87,12 +105,26 @@ export default function Nav() {
                   />
                 </div>
               </PopoverGroup>
-              <div className="flex flex-1 items-center justify-end">
+              <div className="flex flex-1 items-center justify-end gap-3">
+                <Suspense fallback={null}>
+                  <SearchBox />
+                </Suspense>
                 {status === authenticated && session ? (
                   <>
                     <span className="text-gray-500">
                       {session?.user?.email ?? ""}
                     </span>
+                    <Link
+                      className="ml-4 cursor-pointer hover:font-semibold relative"
+                      href="/wishlist"
+                    >
+                      {wishlistCount > 0 && (
+                        <span className="w-4 h-4 text-center absolute right-0 top-0 bg-red-500 text-white text-xs rounded-full">
+                          {wishlistCount}
+                        </span>
+                      )}
+                      <HeartIcon className="w-8 h-8" />
+                    </Link>
                     <Link
                       className="ml-4 cursor-pointer hover:font-semibold relative"
                       href="/cart"

@@ -9,6 +9,8 @@ import { GameInfo, ReviewInfo, ReviewStat } from "@/constants/types";
 import Divider from "@/components/Divider";
 import Review from "./Review";
 import BaseDialog from "@/components/BaseDialog";
+import GameProductListItem from "@/components/GameProductListItem";
+import WishlistButton from "@/components/WishlistButton";
 import useCartCountStore from "@/hooks/useCartCountStore";
 import Spinner from "@/components/Spinner";
 
@@ -16,12 +18,18 @@ interface Props {
   gameInfo: GameInfo;
   reviewList: ReviewInfo[];
   reviewStat: ReviewStat;
+  relatedGames: GameInfo[];
+  initialWishlisted: boolean;
+  initialWishlistId: string | null;
 }
 
 export default function GameDetailClient({
   gameInfo,
   reviewList,
   reviewStat,
+  relatedGames,
+  initialWishlisted,
+  initialWishlistId,
 }: Props) {
   const router = useRouter();
   const { data: session } = useSession();
@@ -122,17 +130,39 @@ export default function GameDetailClient({
             <div>{gameInfo?.company}</div>
           </div>
           <p className="text-gray-500">{gameInfo?.desc}</p>
-          <button
-            className="py-2 text-white text-center bg-red-500 hover:bg-red-400 rounded"
-            onClick={handleAddCart}
-            disabled={loading}
-          >
-            {loading ? <Spinner size={26} /> : <span>장바구니에 넣기</span>}
-          </button>
+          <div className="flex gap-2">
+            <button
+              className="flex-1 py-2 text-white text-center bg-red-500 hover:bg-red-400 rounded"
+              onClick={handleAddCart}
+              disabled={loading}
+            >
+              {loading ? <Spinner size={26} /> : <span>장바구니에 넣기</span>}
+            </button>
+            <WishlistButton
+              dirName="games"
+              productId={gameInfo._id.toString()}
+              initialWishlisted={initialWishlisted}
+              initialWishlistId={initialWishlistId}
+            />
+          </div>
         </div>
       </div>
       <Divider />
       <Review reviewList={reviewList} reviewStat={reviewStat} />
+      {relatedGames.length > 0 && (
+        <>
+          <Divider />
+          <p className="text-xl text-red-400 font-semibold mb-3">관련 상품</p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+            {relatedGames.map((related) => (
+              <GameProductListItem
+                gameInfo={related}
+                key={related._id.toString()}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

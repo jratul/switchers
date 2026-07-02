@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import {
   Disclosure,
@@ -15,6 +15,7 @@ import GameProductListItem from "@/components/GameProductListItem";
 import BaseDialog from "@/components/BaseDialog";
 import { filterData } from "@/constants/data";
 import { GameInfo } from "@/constants/types";
+import { sortByKey, sortOptionsWithRating, SortKey } from "@/util/sortProducts";
 import Loading from "../loading";
 
 interface Props {
@@ -27,12 +28,20 @@ export default function GameListClient({
   initialCheckState,
 }: Props) {
   const [gameList, setGameList] = useState<GameInfo[]>(initialGameList);
-  const [conditionList, setConditionList] = useState<any[]>([{}]);
   const [errorDialogOpen, setErrorDialogOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [sortKey, setSortKey] = useState<SortKey>("default");
 
   const [checkState, setCheckState] =
     useState<{ [key: string]: boolean }>(initialCheckState);
+
+  const conditionList = useMemo(() => {
+    const conditions = Object.keys(checkState).map((filterName) => ({
+      type: filterName,
+    }));
+
+    return conditions.length === 0 ? [{}] : conditions;
+  }, [checkState]);
 
   const isFirstConditionRun = useRef(true);
 
@@ -55,22 +64,6 @@ export default function GameListClient({
       });
     }
   };
-
-  useEffect(() => {
-    setConditionList(() => {
-      const conditionList: any[] = [];
-
-      Object.keys(checkState).map((filterName) => {
-        conditionList.push({ type: filterName });
-      });
-
-      if (conditionList.length === 0) {
-        conditionList.push({});
-      }
-
-      return conditionList;
-    });
-  }, [checkState]);
 
   useEffect(() => {
     if (isFirstConditionRun.current) {
@@ -182,11 +175,24 @@ export default function GameListClient({
           </form>
         </div>
         <div className="col-span-1 lg:col-span-3 p-3">
+          <div className="flex justify-end mb-2">
+            <select
+              value={sortKey}
+              onChange={(event) => setSortKey(event.target.value as SortKey)}
+              className="rounded border-gray-300 text-sm text-gray-600 focus:border-red-400 focus:ring-red-400"
+            >
+              {sortOptionsWithRating.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
           {loading ? (
             <Loading />
           ) : gameList.length > 0 ? (
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
-              {gameList.map((gameInfo) => (
+              {sortByKey(gameList, sortKey).map((gameInfo) => (
                 <motion.div
                   initial={{
                     opacity: 0,

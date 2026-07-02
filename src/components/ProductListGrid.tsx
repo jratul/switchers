@@ -6,6 +6,7 @@ import OtherProductListItem from "@/components/OtherProductListItem";
 import BaseDialog from "@/components/BaseDialog";
 import { ProductInfo } from "@/constants/types";
 import { ProductDirName } from "@/services/productService";
+import { sortByKey, sortOptions, SortKey } from "@/util/sortProducts";
 
 interface Props {
   list: ProductInfo[];
@@ -21,6 +22,9 @@ export default function ProductListGrid({
   errorMessage,
 }: Props) {
   const [errorDialogOpen, setErrorDialogOpen] = useState<boolean>(error);
+  const [sortKey, setSortKey] = useState<SortKey>("default");
+
+  const sortedList = sortByKey(list, sortKey);
 
   return (
     <>
@@ -32,8 +36,21 @@ export default function ProductListGrid({
         buttonText="확인"
         handleYes={() => {}}
       />
+      <div className="flex justify-end mb-2">
+        <select
+          value={sortKey}
+          onChange={(event) => setSortKey(event.target.value as SortKey)}
+          className="rounded border-gray-300 text-sm text-gray-600 focus:border-red-400 focus:ring-red-400"
+        >
+          {sortOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
-        {list.map((productInfo) => (
+        {sortedList.map((productInfo) => (
           <motion.div
             initial={{
               opacity: 0,

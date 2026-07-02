@@ -8,15 +8,27 @@ import { ProductInfo } from "@/constants/types";
 import { ProductDirName } from "@/services/productService";
 import { useSession } from "next-auth/react";
 import BaseDialog from "@/components/BaseDialog";
+import OtherProductListItem from "@/components/OtherProductListItem";
+import Divider from "@/components/Divider";
+import WishlistButton from "@/components/WishlistButton";
 import useCartCountStore from "@/hooks/useCartCountStore";
 import Spinner from "@/components/Spinner";
 
 interface Props {
   productInfo: ProductInfo;
   dirName: ProductDirName;
+  relatedProducts: ProductInfo[];
+  initialWishlisted: boolean;
+  initialWishlistId: string | null;
 }
 
-export default function ProductDetailClient({ productInfo, dirName }: Props) {
+export default function ProductDetailClient({
+  productInfo,
+  dirName,
+  relatedProducts,
+  initialWishlisted,
+  initialWishlistId,
+}: Props) {
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -103,15 +115,38 @@ export default function ProductDetailClient({ productInfo, dirName }: Props) {
             <div>{productInfo?.type}</div>
           </div>
           <p className="text-gray-500">{productInfo?.desc}</p>
-          <button
-            className="py-2 text-white text-center bg-red-500 hover:bg-red-400 rounded"
-            onClick={handleAddCart}
-            disabled={loading}
-          >
-            {loading ? <Spinner size={26} /> : <span>장바구니에 넣기</span>}
-          </button>
+          <div className="flex gap-2">
+            <button
+              className="flex-1 py-2 text-white text-center bg-red-500 hover:bg-red-400 rounded"
+              onClick={handleAddCart}
+              disabled={loading}
+            >
+              {loading ? <Spinner size={26} /> : <span>장바구니에 넣기</span>}
+            </button>
+            <WishlistButton
+              dirName={dirName}
+              productId={productInfo._id.toString()}
+              initialWishlisted={initialWishlisted}
+              initialWishlistId={initialWishlistId}
+            />
+          </div>
         </div>
       </div>
+      {relatedProducts.length > 0 && (
+        <>
+          <Divider />
+          <p className="text-xl text-red-400 font-semibold mb-3">관련 상품</p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+            {relatedProducts.map((related) => (
+              <OtherProductListItem
+                productInfo={related}
+                dirName={dirName}
+                key={related._id.toString()}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

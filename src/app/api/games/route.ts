@@ -5,9 +5,9 @@ export async function POST(req: Request) {
 
   const collection = db.collection("games");
 
-  const body = await req.json();
-
   try {
+    const body = await req.json();
+
     const result = await collection
       .aggregate([
         {

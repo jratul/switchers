@@ -14,6 +14,7 @@ export interface GameInfo extends WithId<Document> {
   _id: ObjectId;
   name: string;
   genre: string;
+  type: string;
   release: Date;
   price: number;
   company: string;
@@ -73,4 +74,11 @@ export interface ReviewStat {
   total: number;
   average: number;
   groupList: { score: number; count: number }[];
+}
+
+export interface WishlistEntry extends WithId<Document> {
+  userEmail: string;
+  dirName: "games" | "devices" | "accs";
+  productId: ObjectId;
+  addedAt: Date;
 }
