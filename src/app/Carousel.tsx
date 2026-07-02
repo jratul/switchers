@@ -83,6 +83,13 @@ export default function Carousel() {
       >
         {data.map((item, idx) => (
           <div className="w-screen flex-shrink-0 relative" key={idx}>
+            <Image
+              src={item.image}
+              alt={item.title}
+              fill
+              priority
+              className="object-contain"
+            />
             <div className="absolute inset-0 bg-gray-900 opacity-70" />
             <div className="absolute w-full h-full">
               <div className="relative mx-auto flex flex-col items-center py-[20vh] text-center">
@@ -98,13 +105,6 @@ export default function Carousel() {
                 </Link>
               </div>
             </div>
-            <Image
-              src={item.image}
-              alt={item.title}
-              fill
-              priority
-              className="object-cover"
-            />
           </div>
         ))}
       </div>
