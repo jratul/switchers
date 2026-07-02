@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Image from "next/image";
 
 import { ProductInfo } from "@/constants/types";
 import { ProductDirName } from "@/services/productService";
@@ -11,6 +10,7 @@ import BaseDialog from "@/components/BaseDialog";
 import OtherProductListItem from "@/components/OtherProductListItem";
 import Divider from "@/components/Divider";
 import WishlistButton from "@/components/WishlistButton";
+import SkeletonImage from "@/components/SkeletonImage";
 import useCartCountStore from "@/hooks/useCartCountStore";
 import Spinner from "@/components/Spinner";
 
@@ -96,10 +96,9 @@ export default function ProductDetailClient({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
         <div className="col-span-1">
           <div className="relative w-full aspect-square">
-            <Image
+            <SkeletonImage
               src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${dirName}/${productInfo.image}`}
               alt={productInfo.name}
-              fill
               priority
               sizes="(min-width: 1024px) 576px, 100vw"
               className="object-contain"

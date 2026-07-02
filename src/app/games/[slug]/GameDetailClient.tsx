@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { format } from "date-fns";
 import { GameInfo, ReviewInfo, ReviewStat } from "@/constants/types";
@@ -11,6 +10,7 @@ import Review from "./Review";
 import BaseDialog from "@/components/BaseDialog";
 import GameProductListItem from "@/components/GameProductListItem";
 import WishlistButton from "@/components/WishlistButton";
+import SkeletonImage from "@/components/SkeletonImage";
 import useCartCountStore from "@/hooks/useCartCountStore";
 import Spinner from "@/components/Spinner";
 
@@ -98,10 +98,9 @@ export default function GameDetailClient({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
         <div className="col-span-1">
           <div className="relative w-full aspect-square">
-            <Image
+            <SkeletonImage
               src={`${process.env.NEXT_PUBLIC_BUCKET_URL}/${gameInfo.image}`}
               alt={gameInfo.name}
-              fill
               priority
               sizes="(min-width: 1024px) 576px, 100vw"
               className="object-contain"
