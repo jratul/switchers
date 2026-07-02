@@ -1,29 +1,23 @@
-"use client";
-
-import { motion } from "framer-motion";
-import OtherProductListItem from "@/components/OtherProductListItem";
 import { ProductInfo } from "@/constants/types";
-import BaseDialog from "@/components/BaseDialog";
-import useProductList from "@/hooks/useProductList";
-import Loading from "../loading";
+import { getProductList } from "@/services/productService";
+import { serialize } from "@/util/serialize";
+import ProductListGrid from "@/components/ProductListGrid";
 
-export default function DeviceList() {
-  const {
-    list: deviceList,
-    errorDialogOpen,
-    setErrorDialogOpen,
-  } = useProductList<ProductInfo>("/api/devices");
+export const revalidate = 60;
+
+async function fetchDeviceList() {
+  try {
+    return { list: serialize(await getProductList("devices")), error: false };
+  } catch (error) {
+    return { list: [] as ProductInfo[], error: true };
+  }
+}
+
+export default async function DeviceList() {
+  const { list, error } = await fetchDeviceList();
 
   return (
     <div className="my-5 mx-auto max-w-6xl">
-      <BaseDialog
-        open={errorDialogOpen}
-        setOpen={setErrorDialogOpen}
-        title="오류 발생"
-        content={["본체 목록을 불러오지 못했습니다.", "잠시 후 다시 시도해주세요."]}
-        buttonText="확인"
-        handleYes={() => {}}
-      />
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-3">
         <div className="col-span-1 px-4">
           <p className="text-red-500 text-3xl font-bold mb-3">
@@ -36,34 +30,12 @@ export default function DeviceList() {
           </p>
         </div>
         <div className="col-span-1 lg:col-span-3 p-3">
-          {deviceList.length > 0 ? (
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
-              {deviceList.map((deviceInfo) => (
-                <motion.div
-                  initial={{
-                    opacity: 0,
-                    translateY: -10,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    translateY: 0,
-                  }}
-                  transition={{
-                    duration: 0.5,
-                    ease: "easeInOut",
-                  }}
-                  key={deviceInfo.name}
-                >
-                  <OtherProductListItem
-                    productInfo={deviceInfo}
-                    dirName="devices"
-                  />
-                </motion.div>
-              ))}
-            </div>
-          ) : (
-            <Loading />
-          )}
+          <ProductListGrid
+            list={list}
+            dirName="devices"
+            error={error}
+            errorMessage="본체 목록을 불러오지 못했습니다."
+          />
         </div>
       </div>
     </div>

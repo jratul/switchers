@@ -1,4 +1,10 @@
+import { GameInfo, ProductInfo } from "@/constants/types";
+import { getGameById } from "@/services/gameService";
+import { getProductBySlug } from "@/services/productService";
+import { serialize } from "@/util/serialize";
 import EventItem from "./EventItem";
+
+export const revalidate = 60;
 
 const data = [
   {
@@ -30,7 +36,26 @@ const data = [
   },
 ];
 
-export default function EventList() {
+async function resolveEvent(event: (typeof data)[number]) {
+  const [games, devices, accs] = await Promise.all([
+    Promise.all(event.games.map((id) => getGameById(id))),
+    Promise.all(event.devices.map((id) => getProductBySlug("devices", id))),
+    Promise.all(event.accs.map((id) => getProductBySlug("accs", id))),
+  ]);
+
+  return {
+    ...event,
+    games: serialize(games.filter((game): game is GameInfo => game !== null)),
+    devices: serialize(
+      devices.filter((device): device is ProductInfo => device !== null)
+    ),
+    accs: serialize(accs.filter((acc): acc is ProductInfo => acc !== null)),
+  };
+}
+
+export default async function EventList() {
+  const resolvedData = await Promise.all(data.map(resolveEvent));
+
   return (
     <div className="my-5 mx-auto max-w-6xl">
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-3">
@@ -43,7 +68,7 @@ export default function EventList() {
           </p>
         </div>
         <div className="col-span-1 lg:col-span-3 p-3">
-          {data.map((item, idx) => (
+          {resolvedData.map((item, idx) => (
             <EventItem key={idx} eventInfo={item} />
           ))}
         </div>

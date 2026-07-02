@@ -47,6 +47,16 @@ export interface EventInfo {
   accs: string[];
 }
 
+export interface ResolvedEventInfo {
+  title: string;
+  content: string;
+  image: string;
+  totalPrice: number;
+  games: GameInfo[];
+  devices: ProductInfo[];
+  accs: ProductInfo[];
+}
+
 export interface FilterInfo {
   title: string;
   items: string[];

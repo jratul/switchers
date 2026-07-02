@@ -6,14 +6,18 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import Divider from "@/components/Divider";
-import { EventInfo } from "@/constants/types";
+import { ResolvedEventInfo } from "@/constants/types";
 import GameItem from "./GameItem";
 import ProductItem from "./ProductItem";
 import Spinner from "@/components/Spinner";
 import BaseDialog from "@/components/BaseDialog";
 import useCartCountStore from "@/hooks/useCartCountStore";
 
-export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
+export default function EventItem({
+  eventInfo,
+}: {
+  eventInfo: ResolvedEventInfo;
+}) {
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -109,34 +113,34 @@ export default function EventItem({ eventInfo }: { eventInfo: EventInfo }) {
       </div>
       <div className="text-lg text-red-400 font-semibold">상품 구성</div>
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-2">
-        {eventInfo.games.map((gameId) => (
+        {eventInfo.games.map((gameInfo) => (
           <motion.div
             initial={{ opacity: 0, translateY: -10 }}
             animate={{ opacity: 1, translateY: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            key={gameId}
+            key={gameInfo._id.toString()}
           >
-            <GameItem gameId={gameId} />
+            <GameItem gameInfo={gameInfo} />
           </motion.div>
         ))}
-        {eventInfo.devices.map((deviceId) => (
+        {eventInfo.devices.map((deviceInfo) => (
           <motion.div
             initial={{ opacity: 0, translateY: -10 }}
             animate={{ opacity: 1, translateY: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            key={deviceId}
+            key={deviceInfo._id.toString()}
           >
-            <ProductItem productId={deviceId} dirName="devices" />
+            <ProductItem productInfo={deviceInfo} dirName="devices" />
           </motion.div>
         ))}
-        {eventInfo.accs.map((accId) => (
+        {eventInfo.accs.map((accInfo) => (
           <motion.div
             initial={{ opacity: 0, translateY: -10 }}
             animate={{ opacity: 1, translateY: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            key={accId}
+            key={accInfo._id.toString()}
           >
-            <ProductItem productId={accId} dirName="accs" />
+            <ProductItem productInfo={accInfo} dirName="accs" />
           </motion.div>
         ))}
       </div>

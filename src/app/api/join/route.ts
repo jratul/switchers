@@ -1,7 +1,7 @@
 import { connectDB } from "@/util/database";
 import bcrypt from "bcrypt";
 
-const emailRegex = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/i;
+const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
 
 export async function POST(req: Request) {
   const formData = await req.formData();

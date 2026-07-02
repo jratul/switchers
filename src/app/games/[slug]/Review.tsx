@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
 
@@ -6,40 +5,12 @@ import Rating from "@/components/Rating";
 import { ReviewInfo, ReviewStat } from "@/constants/types";
 import ReviewItem from "../../../components/ReviewItem";
 
-export default function Review({ gameId }: { gameId: string }) {
-  const [reviewList, setReviewList] = useState<ReviewInfo[]>([]);
-  const [reviewStat, setReviewStat] = useState<ReviewStat>({
-    total: 0,
-    average: 0,
-    groupList: [
-      { score: 5, count: 0 },
-      { score: 4, count: 0 },
-      { score: 3, count: 0 },
-      { score: 2, count: 0 },
-      { score: 1, count: 0 },
-    ],
-  });
+interface Props {
+  reviewList: ReviewInfo[];
+  reviewStat: ReviewStat;
+}
 
-  useEffect(() => {
-    if (!gameId) {
-      return;
-    }
-
-    fetch(`/api/reviews/game/${gameId}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error();
-        }
-
-        return res.json();
-      })
-      .then((reviewData) => {
-        setReviewList(reviewData.reviewList);
-        setReviewStat(reviewData.reviewStat);
-      })
-      .catch(() => {});
-  }, [gameId]);
-
+export default function Review({ reviewList, reviewStat }: Props) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
       <div className="col-span-1 flex flex-col gap-2 p-3">

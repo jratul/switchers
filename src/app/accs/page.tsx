@@ -1,29 +1,23 @@
-"use client";
-
-import { motion } from "framer-motion";
-import OtherProductListItem from "@/components/OtherProductListItem";
 import { ProductInfo } from "@/constants/types";
-import BaseDialog from "@/components/BaseDialog";
-import useProductList from "@/hooks/useProductList";
-import Loading from "../loading";
+import { getProductList } from "@/services/productService";
+import { serialize } from "@/util/serialize";
+import ProductListGrid from "@/components/ProductListGrid";
 
-export default function AccList() {
-  const {
-    list: accList,
-    errorDialogOpen,
-    setErrorDialogOpen,
-  } = useProductList<ProductInfo>("/api/accs");
+export const revalidate = 60;
+
+async function fetchAccList() {
+  try {
+    return { list: serialize(await getProductList("accs")), error: false };
+  } catch (error) {
+    return { list: [] as ProductInfo[], error: true };
+  }
+}
+
+export default async function AccList() {
+  const { list, error } = await fetchAccList();
 
   return (
     <div className="my-5 mx-auto max-w-6xl">
-      <BaseDialog
-        open={errorDialogOpen}
-        setOpen={setErrorDialogOpen}
-        title="오류 발생"
-        content={["액세서리 목록을 불러오지 못했습니다.", "잠시 후 다시 시도해주세요."]}
-        buttonText="확인"
-        handleYes={() => {}}
-      />
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-3">
         <div className="col-span-1 px-4">
           <p className="text-red-500 text-3xl font-bold mb-3">액세서리</p>
@@ -34,35 +28,12 @@ export default function AccList() {
           </p>
         </div>
         <div className="col-span-1 lg:col-span-3 p-3">
-          {accList.length > 0 ? (
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
-              {accList.map((accInfo) => (
-                <motion.div
-                  initial={{
-                    opacity: 0,
-                    translateY: -10,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    translateY: 0,
-                  }}
-                  transition={{
-                    duration: 0.5,
-                    ease: "easeInOut",
-                  }}
-                  key={accInfo.name}
-                >
-                  <OtherProductListItem
-                    key={accInfo.name}
-                    productInfo={accInfo}
-                    dirName="accs"
-                  />
-                </motion.div>
-              ))}
-            </div>
-          ) : (
-            <Loading />
-          )}
+          <ProductListGrid
+            list={list}
+            dirName="accs"
+            error={error}
+            errorMessage="액세서리 목록을 불러오지 못했습니다."
+          />
         </div>
       </div>
     </div>

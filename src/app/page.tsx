@@ -1,40 +1,28 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import Divider from "@/components/Divider";
-import MainProductListItem from "@/components/MainProductListItem";
 import { GameInfo } from "@/constants/types";
+import { getPopularGames, getRecentGames } from "@/services/gameService";
+import { serialize } from "@/util/serialize";
 import Carousel from "./Carousel";
+import HomeProductRow from "./HomeProductRow";
 import Loading from "./loading";
 
-export default function Home() {
-  const [popularList, setPopularList] = useState<GameInfo[]>([]);
-  const [recentList, setRecentList] = useState<GameInfo[]>([]);
+export const revalidate = 60;
 
-  useEffect(() => {
-    fetch(`/api/popular`, { method: "GET" })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error();
-        }
+async function fetchHomeLists() {
+  try {
+    const [popularList, recentList] = await Promise.all([
+      getPopularGames(),
+      getRecentGames(),
+    ]);
 
-        return res.json();
-      })
-      .then((popularList) => setPopularList(popularList))
-      .catch(() => {});
+    return { popularList: serialize(popularList), recentList: serialize(recentList) };
+  } catch (error) {
+    return { popularList: [] as GameInfo[], recentList: [] as GameInfo[] };
+  }
+}
 
-    fetch(`/api/recent`, { method: "GET" })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error();
-        }
-
-        return res.json();
-      })
-      .then((recentList) => setRecentList(recentList))
-      .catch(() => {});
-  }, []);
+export default async function Home() {
+  const { popularList, recentList } = await fetchHomeLists();
 
   return (
     <div>
@@ -53,29 +41,7 @@ export default function Home() {
         <div className="mt-4 flow-root">
           <div className="-my-2">
             {popularList.length > 0 ? (
-              <div className="relative box-content h-80 overflow-x-auto py-2 xl:overflow-visible">
-                <div className="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
-                  {popularList.map((productItem) => (
-                    <motion.div
-                      initial={{
-                        opacity: 0,
-                        translateY: -10,
-                      }}
-                      animate={{
-                        opacity: 1,
-                        translateY: 0,
-                      }}
-                      transition={{
-                        duration: 0.5,
-                        ease: "easeInOut",
-                      }}
-                      key={productItem.name}
-                    >
-                      <MainProductListItem gameInfo={productItem} />
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
+              <HomeProductRow list={popularList} />
             ) : (
               <Loading />
             )}
@@ -97,29 +63,7 @@ export default function Home() {
         <div className="mt-4 flow-root">
           <div className="-my-2">
             {recentList.length > 0 ? (
-              <div className="relative box-content h-80 overflow-x-hidden py-2 xl:overflow-visible">
-                <div className="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
-                  {recentList.map((productItem) => (
-                    <motion.div
-                      initial={{
-                        opacity: 0,
-                        translateY: -10,
-                      }}
-                      animate={{
-                        opacity: 1,
-                        translateY: 0,
-                      }}
-                      transition={{
-                        duration: 0.5,
-                        ease: "easeInOut",
-                      }}
-                      key={productItem.name}
-                    >
-                      <MainProductListItem gameInfo={productItem} />
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
+              <HomeProductRow list={recentList} />
             ) : (
               <Loading />
             )}

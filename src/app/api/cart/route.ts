@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { connectDB } from "@/util/database";
 import { ObjectId } from "mongodb";
 import { authOptions } from "@/util/authOptions";
+import { getCartByEmail } from "@/services/cartService";
 
 export async function POST() {
   const session = await getServerSession(authOptions);
@@ -9,14 +10,8 @@ export async function POST() {
     return Response.json({ status: 401 });
   }
 
-  const db = (await connectDB).db("switchers");
-
   try {
-    const collection = db.collection("cart");
-
-    const cartList = await collection
-      .find({ userEmail: session.user.email })
-      .toArray();
+    const cartList = await getCartByEmail(session.user.email);
     return Response.json(cartList, { status: 200 });
   } catch (error) {
     return Response.json({ status: 401 });
